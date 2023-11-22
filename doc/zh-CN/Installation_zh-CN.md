@@ -32,7 +32,7 @@ conda activate mxt
 
 cd MemXTerminator
 
-python setup.py install
+pip install .
 
 ```
 
