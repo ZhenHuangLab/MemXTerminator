@@ -1,0 +1,14 @@
+Metadata-Version: 2.1
+Name: MemXTerminator
+Version: 1.0.0
+Summary: A software for membrane analysis and subtraction in cryo-EM
+Home-page: 
+Author: Zhen Huang
+Author-email: zhen.victor.huang@gmail.com
+License: GPLv3
+Keywords: cryo-EM,cryo-ET,membrane subtraction
+Classifier: Development Status :: 3 - Alpha
+Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
+Classifier: Programming Language :: Python :: 3.9
+Requires-Python: >=3.9
+Description-Content-Type: text/markdown
