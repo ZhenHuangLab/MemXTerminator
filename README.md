@@ -16,7 +16,7 @@ This software utilizes 2D averages and their corresponding alignment information
 ## Requirements
 
 * This software requires a GPU and CUDA acceleration, necessitating the installation of CUDA drivers and libraries, as well as the cupy library.
-* In some cases, `pyem` is also needed to convert cryoSPARC’s `.cs` files to Relion’s `.star` format for processing.
+* In some cases, [pyem](https://github.com/asarnow/pyem) is also needed to convert cryoSPARC’s `.cs` files to Relion’s `.star` format for processing.
 
 ## Installation
 
