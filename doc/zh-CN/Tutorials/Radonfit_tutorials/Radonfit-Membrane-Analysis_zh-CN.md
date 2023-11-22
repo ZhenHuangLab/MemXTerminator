@@ -20,26 +20,26 @@
 
 1. 到达cryoSPRAC Select 2D Classes对应Job的文件夹下
 
-2. 使用`pyem5`的`csparc2star.py`，运行如下命令，将`templates_selected.cs`转成`templates_selected.star`
+2. 使用`pyem`的`csparc2star.py`，运行如下命令，将`templates_selected.cs`转成`templates_selected.star`
 
-    对于最新版的`pyem5`，运行如下命令：
+    对于最新版的`pyem`，运行如下命令：
 
     ```bash
     csparc2star.py --relion2 templates_selected.cs templates_selected.star
     ```
 
-    如果没有relion2参数，说明您的`pyem5`版本较旧，运行如下命令：
+    如果没有relion2参数，说明您的`pyem`版本较旧，运行如下命令：
 
     ```bash
     csparc2star.py templates_selected.cs templates_selected.star
     ```
 
-3. 使用`pyem5`的`csparc2star.py`，运行如下命令，将`particles_selected.cs`转成`particles_selected.star`：
-    对于最新版的`pyem5`，运行如下命令：
+3. 使用`pyem`的`csparc2star.py`，运行如下命令，将`particles_selected.cs`转成`particles_selected.star`：
+    对于最新版的`pyem`，运行如下命令：
     ```bash
     csparc2star.py --relion2 particles_selected.cs Jxxx_passthrough_particles_selected.cs particles_selected.star
     ```
-    如果没有relion2参数，说明您的`pyem5`版本较旧，运行如下命令：
+    如果没有relion2参数，说明您的`pyem`版本较旧，运行如下命令：
     ```bash
     csparc2star.py --swapxy particles_selected.cs Jxxx_passthrough_particles_selected.cs particles_selected.star
     ```
