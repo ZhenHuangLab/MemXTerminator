@@ -20,24 +20,24 @@ Since the Radonfit program in this software still reads particle information in 
 
 1. Go to the folder corresponding to the cryoSPRAC Select 2D Classes job.
 
-2. Use `pyem5`'s `csparc2star.py` to run the following command, converting `templates_selected.cs` into `templates_selected.star`:
+2. Use `pyem` `csparc2star.py` to run the following command, converting `templates_selected.cs` into `templates_selected.star`:
 
-    For the latest version of `pyem5`, run the following command:
+    For the latest version of `pyem`, run the following command:
     ```bash
     csparc2star.py --relion2 templates_selected.cs templates_selected.star
     ```
 
-    If there is no relion2 parameter, it means your `pyem5` version is older, run the following command:
+    If there is no relion2 parameter, it means your `pyem` version is older, run the following command:
     ```bash
     csparc2star.py templates_selected.cs templates_selected.star
     ```
 
-3. Use `pyem5`'s `csparc2star.py` to run the following command, converting `particles_selected.cs` into `particles_selected.star`:
-    For the latest version of `pyem5`, run the following command:
+3. Use `pyem`  `csparc2star.py` to run the following command, converting `particles_selected.cs` into `particles_selected.star`:
+    For the latest version of `pyem`, run the following command:
     ```bash
     csparc2star.py --relion2 particles_selected.cs Jxxx_passthrough_particles_selected.cs particles_selected.star
     ```
-    If there is no relion2 parameter, it means your `pyem5` version is older, run the following command:
+    If there is no relion2 parameter, it means your `pyem` version is older, run the following command:
     ```bash
     csparc2star.py --swapxy particles_selected.cs Jxxx_passthrough_particles_selected.cs particles_selected.star
     ```
