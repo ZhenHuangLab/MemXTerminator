@@ -20,7 +20,7 @@ This software utilizes 2D averages and their corresponding alignment information
 
 ## Installation
 
-For specific installation methods, please refer to the installation document: [[Installation Document]](./doc/Installation.md)
+For specific installation methods, please refer to the installation document: [[Installation Document]](./doc/en/Installation_en.md) [[安装文档]](./doc/zh-CN/Installation_zh-CN.md)
 
 ## Usage
 
