@@ -38,4 +38,4 @@ Thanks to Jack Zhang@Yale MBB for his guidance.
 
 ## Contact
 
-If you have any questions, please contact: zhen.victor.huang@gmail.com
+If you have any questions, please contact me: zhen.victor.huang@gmail.com
