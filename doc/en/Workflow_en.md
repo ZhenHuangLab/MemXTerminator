@@ -24,6 +24,7 @@ Select a 2D average with a good signal-to-noise ratio and dominant biological me
 Use these generated templates as new templates to pick particles again, ensuring the accurate positioning of the particles' centers at the cell membrane center.
 
 ### 1.2 Extract Particles & 2D Classification
+
 Extract the aforementioned particles for 2D classification. The obtained 2D averages should have their membrane centers at the image center. Use these 2D averages for subsequent analysis.
 
 ## 2 Analyzing 2D Averages to Obtain Corresponding Functional Expressions
@@ -44,23 +45,27 @@ Analyze the 2D averages, obtaining information for each 2D average like membrane
 This method primarily uses Bezier curves combined with Monte Carlo and genetic algorithms to fit the biological membrane in the 2D averages with **more complex irregular curves as models**, resulting in several control points and corresponding functional expressions. It's suitable for **more complex biological membrane models**, like S-shaped, W-shaped, etc., such as mitochondrial membranes.
 
 #### 2.2.1 Using the Monte Carlo Method to Randomly Generate Points in the Membrane Area
+
 For each 2D average, first use a maximum value filter to extract the rough biological membrane area from the 2D average, then randomly generate several points in this area as reference points for the initial fitting of the Bezier curve.
 
 #### 2.2.2 Preliminary Fitting Using Genetic Algorithms
+
 Use genetic algorithms for a preliminary fitting of the points generated in the previous step, obtaining several control points and the corresponding functional expressions. This step allows determining the general direction and shape of the membrane based on the position information of the points from the previous step.
 
 #### 2.2.3 Adjusting Control Points Using Genetic Algorithms to Optimize Fitting Results
+
 Further optimize the control points obtained in the preliminary fitting using genetic algorithms again. By maximizing the value of cross-correlation, adjust the positions of the control points to obtain several optimal control points that fit the shape of the membrane in the 2D average. These optimal control points correspond to a functional expression describing the shape of the membrane.
 
-## 3 Membrane
+## 3 Membrane Subtraction
 
- Subtraction
 Each type of 2D average corresponds to several raw particle stacks. From the previous analysis of the 2D average, we can obtain the functional expression of that type of biological membrane, which gives us the membrane information for each raw particle.
 
 Perform membrane subtraction on each previously extracted raw particle to obtain the corresponding subtracted particle, forming another corresponding particle stack. This stack is the subtracted particle stack.
 
 ## 4 Placing the Subtracted Particles Back into the Micrograph
+
 Replace the original particles in the micrographs with the corresponding subtracted particles to obtain new micrographs, where the membrane signals can be weakened or even removed.
 
 ## 5 Picking Particles in the New Micrograph Using Membrane Protein Templates
+
 In the new subtracted micrographs, use membrane protein templates to pick particles for subsequent calculations.
