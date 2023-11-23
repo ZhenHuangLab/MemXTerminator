@@ -2,6 +2,8 @@
 
 A software for membrane analysis and subtraction in cryo-EM.
 
+![overview](./doc/img/0-1.png)
+
 ## Overview
 
 This software utilizes 2D averages and their corresponding alignment information, employing methods such as Radon transformation, cross-correlation, L1 norm, Bezier curves, Monte Carlo simulations, and genetic algorithms. It analyzes and subtracts membranes of any shape in cryo-EM, ultimately producing particle stacks and micrographs with membrane signals removed, suitable for subsequent membrane protein analysis.
@@ -36,4 +38,4 @@ Thanks to Jack Zhang@Yale MBB for his guidance.
 
 ## Contact
 
-If you have any questions, please contact: zhen.victor.huang@gmail.com
+If you have any questions, please contact me: zhen.victor.huang@gmail.com
