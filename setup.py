@@ -1,13 +1,12 @@
 from setuptools import setup, find_packages
-from memxterminator.__init__ import __version__, __author__, __email__
 
 setup(
     name='MemXTerminator',
-    version=f'{__version__}',
+    version='1.0.0',
     packages=find_packages(where='src'),
     package_dir={'': 'src'},
-    author=f'{__author__}',
-    author_email=f'{__email__}',
+    author='Zhen Huang',
+    author_email='zhen.victor.huang@gmail.com',
     description='A software for membrane analysis and subtraction in cryo-EM',
     long_description=open('README.md', encoding='utf-8').read(),
     long_description_content_type='text/markdown',
