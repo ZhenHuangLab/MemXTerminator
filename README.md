@@ -26,15 +26,29 @@ For specific installation methods, please refer to the installation document: [[
 
 ## Usage
 
+This software has a user-friendly GUI. To use this software, simply type:
+
+```bash
+
+MemXTerminator gui
+
+```
+
 For detailed usage tutorials, please refer to the documentation: [[Usage Index]](./doc/index.md)
 
 ## License
 
 This software is licensed under GPL v3.0.
 
-## Acknowledgements
+## Acknowledgement
 
 Thanks to Jack Zhang@Yale MBB for his guidance.
+
+## Contributing
+
+**Always welcome!** This software may still has room for improvement such as updating the usage documentation, improving the GUI design, and enhancing the software's usability.
+
+I am still working on improving this software. More exciting features are on the way!
 
 ## Contact
 
