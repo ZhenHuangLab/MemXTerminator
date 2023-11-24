@@ -6,10 +6,13 @@ After completing the previous step of Membrane Analysis Using Radonfit, you have
 
 Basic concept:
 
-* For each particle $F_{RawImage}(x,y)$ (abbreviated as $F_{RI}(x,y)$), corresponding to its template $f_{2DAverage}(x,y)$, we have a membrane-averaged function $f_{AveragedMembrane}(x,y)$ (abbreviated as $f_{AM}$) and a corresponding membrane mask $f_{MembraneMask}(x,y)$ (abbreviated as $f_{MM}$);
-* Based on alignment information from cryoSPARC, i.e., the previously used `particles_selected.star` file, we can determine the displacement $(\Delta x, \Delta y)$ and rotation angle $\psi$ for each particle. Using these parameters, transform $f_{AM}$ and $f_{MM}$ accordingly to match each particle's membrane signal, resulting in transformed functions $f'_{AM}$ and $f'_{MM}$;
-* For each particle, perform trajectory averaging using $f'_{AM}$ and $f'_{MM}$, thereby obtaining each particle's corresponding membrane signal $F_{AM}(x,y)$ and mask $F_{MM}(x,y)$;
-* For each particle, to obtain $F_{SubtractedRawImage}(x,y)$ (abbreviated as $F_{SRI}(x,y)$), use the following equation:
+* For each particle $F_{RawImage}(x,y)$ (abbreviated as $F_{RI}(x,y)$ ), corresponding to its template $f_{2DAverage}(x,y)$, we have a membrane-averaged function $f_{AveragedMembrane}(x,y)$ (abbreviated as $f_{AM}$) and a corresponding membrane mask $f_{MembraneMask}(x,y)$ (abbreviated as $f_{MM}$ );
+
+* Based on alignment information from cryoSPARC, i.e., the previously used `particles_selected.star` file, we can determine the displacement $(\Delta x, \Delta y)$ and rotation angle $\psi$ for each particle. Using these parameters, transform $f_{AM}$ and $f_{MM}$ accordingly to match each particle's membrane signal, resulting in transformed functions $f_{AM}'$ and $f_{MM}'$;
+
+* For each particle, perform trajectory averaging using $f_{AM}'$ and $f_{MM}'$, thereby obtaining each particle's corresponding membrane signal $F_{AM}(x,y)$ and mask $F_{MM}(x,y)$;
+
+* For each particle, to obtain $F_{SubtractedRawImage}(x,y)$ (abbreviated as $F_{SRI}(x,y)$ ), use the following equation:
 
 $$
 F_{SRI}(x,y) = F_{RI}(x,y) \times F_{MM}(x,y) - \lambda \times F_{AM}(x,y)
@@ -65,6 +68,4 @@ After the run, you will find a subtracted folder next to the folder where you ex
     ├── extract/
     ├── subtracted/
 
-In the subtracted folder, you will find all the mrc files of the particles with
-
- membrane signals removed. You can proceed with further processing using cryoSPARC or reattach the particles to the micrographs for subsequent processing.
+In the subtracted folder, you will find all the mrc files of the particles with membrane signals removed. You can proceed with further processing using cryoSPARC or reattach the particles to the micrographs for subsequent processing.
