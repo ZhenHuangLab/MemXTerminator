@@ -1,8 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QApplication, QDialog
-from memxterminator.GUI.MembraneAnalyzer_Bezierfit import Ui_MembraneAnalyzer_Bezierfit
-from memxterminator.GUI.particle_membrane_subtraction_bezierfit import Ui_ParticleMembraneSubtraction_bezierfit
-from memxterminator.GUI.MicrographMembraneSubtraction_Bezierfit import Ui_MicrographMembraneSubtraction_Bezierfit
+from ..GUI.MembraneAnalyzer_Bezierfit import Ui_MembraneAnalyzer_Bezierfit
+from ..GUI.particle_membrane_subtraction_bezierfit import Ui_ParticleMembraneSubtraction_bezierfit
+from ..GUI.MicrographMembraneSubtraction_Bezierfit import Ui_MicrographMembraneSubtraction_Bezierfit
 import subprocess
 import os
 import json

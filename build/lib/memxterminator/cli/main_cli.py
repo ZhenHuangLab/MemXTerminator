@@ -1,7 +1,7 @@
 import sys
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QApplication, QDialog
-from memxterminator.GUI.mainwindow_gui import Ui_MainWindow
+from ..GUI.mainwindow_gui import Ui_MainWindow
 from .radonfit_cli import RadonApp, MembraneAnalyzerApp, MembraneSubtractionApp, MicrographMembraneSubtraction_Radon_App
 from .bezierfit_cli import MembraneAnalyzer_Bezier_App, ParticleMembraneSubtraction_Bezier_App, MicrographMembraneSubtraction_Bezier_App
 import argparse

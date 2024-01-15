@@ -10,6 +10,7 @@ from cupyx.scipy.ndimage import zoom
 class Template_centerfitting:
     def __init__(self, output_filename, i, sigma1, sigma2, image, crop_rate, thr, theta_start, theta_end, template_size, sigma_range, sigma_step):
         df_star = readstar(output_filename)
+        print(df_star)
         self.output_filename = output_filename
         radonanalyze = RadonAnalyzer(output_filename, i, image, crop_rate=crop_rate, thr=thr, theta_start=theta_start, theta_end=theta_end)
         # self.gray_image = self.radonanalyze.gray_image

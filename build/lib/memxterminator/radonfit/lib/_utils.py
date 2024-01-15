@@ -69,31 +69,3 @@ def gaussian_kernel(size, sigma=1.0):
     normal = 1 / (2.0 * cp.pi * sigma**2)
     g =  cp.exp(-((x**2 + y**2) / (2.0*sigma**2))) * normal
     return g
-
-# def convolve(image, kernel):
-#     i_height, i_width = image.shape
-#     k_height, k_width = kernel.shape
-
-#     pad_height = k_height // 2
-#     pad_width = k_width // 2
-#     padded_image = cp.pad(image, ((pad_height, pad_height), (pad_width, pad_width)), mode='constant')
-
-#     output = cp.zeros_like(image, dtype=float)
-
-#     for i in range(i_height):
-#         for j in range(i_width):
-#             output[i, j] = cp.sum(padded_image[i: i + k_height, j: j + k_width] * kernel)
-#     return output
-
-# kernel = gaussian_kernel(5, 1)
-# gray_image = readmrc('2023-05-28_00.21.16_neuron_152-3_00013_X-1Y-1-1_patch_aligned_doseweighted_particles.mrc', section=0, mode='gpu')
-# print(type(gray_image))
-# print(type(kernel))
-# blurred_image = convolve(gray_image, kernel)
-# # blurred_image = convolve(gray_image, kernel)
-# # image_lp = create_gaussian_low_pass_filter(gray_image, 15)
-# fig, ax = plt.subplots(1, 2, figsize=(10, 10))
-# ax[0].imshow(gray_image.get(), cmap='gray')
-# ax[1].imshow(blurred_image.get(), cmap='gray')
-# # ax[2].imshow(image_lp, cmap='gray')
-# plt.show()

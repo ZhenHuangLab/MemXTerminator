@@ -12,7 +12,7 @@ class Curve:
     def __init__(self, output_filename, i, image, y0, x0, theta, kappa):
         # self.radonanalyze = RadonAnalyzer(image, thr=thr)
         # self.centerfit = Template_centerfitting(3, 3, image, thr=thr)
-        df_star = starfile.read(output_filename)
+        df_star = readstar(output_filename)
         # self.y0, self.x0 = df_star.loc[0, 'rlnCenterX'], df_star.loc[0, 'rlnCenterY'] # center of membrane
         # if mode == 0:
         #     self.theta = df_star.loc[0, 'rlnAngleTheta'] * np.pi / 180

@@ -1,17 +1,17 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QApplication, QDialog
-from memxterminator.GUI.radon_gui import Ui_Form
-from memxterminator.GUI.radonfit_membrane_analyzer_gui import Ui_MembraneAnalyzer
-from memxterminator.GUI.radonfit_membrane_subtraction_gui import Ui_MembraneSubtraction
-from memxterminator.GUI.MicrographMembraneSubtraction_Radonfit import Ui_MicrographMembraneSubtraction_Radonfit
+from ..GUI.radon_gui import Ui_Form
+from ..GUI.radonfit_membrane_analyzer_gui import Ui_MembraneAnalyzer
+from ..GUI.radonfit_membrane_subtraction_gui import Ui_MembraneSubtraction
+from ..GUI.MicrographMembraneSubtraction_Radonfit import Ui_MicrographMembraneSubtraction_Radonfit
 import numpy as np
 import cupy as cp
 import matplotlib.pyplot as plt
 import os
 import json
 import mrcfile
-from memxterminator.radonfit.lib._utils import *
-from memxterminator.radonfit.lib.radonanalyser import *
+from ..radonfit.lib._utils import *
+from ..radonfit.lib.radonanalyser import *
 import subprocess
 
 
