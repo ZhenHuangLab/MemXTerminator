@@ -1,6 +1,5 @@
 import numpy as np
 import cupy as cp
-import pandas as pd
 import matplotlib.pyplot as plt
 from ._utils import *
 from .template_centerfitting import *
@@ -9,14 +8,11 @@ from .circle_mask_generator import *
 from cupyx.scipy.ndimage import zoom
 from cupyx.scipy.signal import correlate2d
 
-pd.set_option('display.max_columns', None)
-
 class Curve:
     def __init__(self, output_filename, i, image, y0, x0, theta, kappa):
         # self.radonanalyze = RadonAnalyzer(image, thr=thr)
         # self.centerfit = Template_centerfitting(3, 3, image, thr=thr)
         df_star = readstar(output_filename)
-        print(output_filename)
         # self.y0, self.x0 = df_star.loc[0, 'rlnCenterX'], df_star.loc[0, 'rlnCenterY'] # center of membrane
         # if mode == 0:
         #     self.theta = df_star.loc[0, 'rlnAngleTheta'] * np.pi / 180
@@ -30,7 +26,6 @@ class Curve:
         self.gray_image = image
         self.image_size = image.shape[0]
         self.sigma1, self.sigma2 = df_star.loc[i, 'rlnSigma1'], df_star.loc[i, 'rlnSigma2']
-        print('sigma1:', self.sigma1, 'sigma2:', self.sigma2)
         self.kappa = kappa
         self.x_c = 0 # center of the circle
         self.y_c = 0
