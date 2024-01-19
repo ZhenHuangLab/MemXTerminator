@@ -14,6 +14,6 @@ To use this software, simply type:
 
 ```bash
 
-MemXTerminator gui
+MemXTerminator gui &
 
 ```
