@@ -372,7 +372,7 @@ class MicrographMembraneSubtraction_Radon_App(QtWidgets.QDialog, Ui_MicrographMe
             '--cpu', f'{int(self.cpus)}',
             '--batch_size', f'{int(self.batch_size)}']
         with open('run.out', 'w') as f:
-            self.process = subprocess.Popen(['python','-u', '-m', 'memxterminator.radonfit.bin.micrograph_mem_subtract'] + params, stdout=f, stderr=subprocess.STDOUT)
+            self.process = subprocess.Popen(['python','-u', '-m', 'memxterminator.radonfit.bin.micrograph_mem_subtraction'] + params, stdout=f, stderr=subprocess.STDOUT)
         print("Radon Micrograph Membrane Subtraction started with PID:", self.process.pid)
         with open(self.PID_FILE, 'w') as f:
             f.write(str(self.process.pid))
