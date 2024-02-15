@@ -134,7 +134,6 @@ class MicrographMembraneSubtract:
                 print(f">>> {len(minibatch)} micrograph stacks took {end_time - start_time:.4f} seconds.")
                 i += 1
 
-
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Micrograph membrane subtraction')
     parser.add_argument('--particles_selected_filename', '-ps',  type=str, help='particles_selected.star')
@@ -142,16 +141,4 @@ if __name__ == '__main__':
     parser.add_argument('--batch_size', type=int, default=30)
     args = parser.parse_args()
     mms = MicrographMembraneSubtract(args.particles_selected_filename)
-    # mms.micrograph_mem_subtract()
     mms.micrograph_mem_subtract_multiprocessing(args.cpu, args.batch_size)
-    # micrograph = mrcfile.open('S1/motioncorrected/2023-02-06_17.53.19_VSV_slot3_grid3_2250X_sq01_77-7_0002_X-1Y-1-2_patch_aligned_doseweighted.mrc').data
-    # micrograph_new = micrograph.copy()
-
-    # particle_center = (2438, 2642)
-    # particle_size = 256
-    # particle = micrograph[particle_center[1]-particle_size//2:particle_center[1]+particle_size//2, particle_center[0]-particle_size//2:particle_center[0]+particle_size//2]
-
-    # particle_extracted = mrcfile.open('J336/extract/2023-02-06_17.53.19_VSV_slot3_grid3_2250X_sq01_77-7_0002_X-1Y-1-2_patch_aligned_doseweighted_particles_subtracted.mrc').data[16]
-    # particle_extracted = - particle_extracted
-    # particle_extracted = (particle_extracted - np.mean(particle_extracted)) / np.std(particle_extracted) * np.std(particle) + np.mean(particle)
-    # micrograph_new[particle_center[1]-particle_size//2:particle_center[1]+particle_size//2, particle_center[0]-particle_size//2:particle_center[0]+particle_size//2] = particle_extracted

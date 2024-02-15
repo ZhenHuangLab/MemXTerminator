@@ -63,31 +63,14 @@ class MembraneSubtract:
         zip_lst = list(zip(psi_lst, dx_lst, dy_lst, rawimage_class_lst))
         df_temp_dict_psi_dx_dy_class = dict(zip(rawimage_sections_lst, zip_lst))
         return df_temp_dict_psi_dx_dy_class
-    # def membrane_subtract(self):
-    #     for rawimage_stacks_name in self.rawimage_stacks_name_lst:
-    #         rawimages_stacks = cp.asarray(mrcfile.open(rawimage_stacks_name).data)
-    #         rawimages_stacks_subtracted = rawimages_stacks.copy()
-    #         df_rawimage_temp = self.get_df_temp(rawimage_stacks_name)
-    #         df_rawimage_temp_dict_psi_dx_dy_class = self.get_df_temp_psi_dx_dy_class(df_rawimage_temp)
-    #         for df_rawimage_temp_section_num, df_rawimage_temp_psi_dx_dy_class in df_rawimage_temp_dict_psi_dx_dy_class.items():
-    #             rawimage_temp = rawimages_stacks[df_rawimage_temp_section_num-1]
-    #             psi, dx, dy, class_number = df_rawimage_temp_psi_dx_dy_class
-    #             x0, y0, theta, memdist, kappa = self.get_center_posi_theta_memdist_kappa(class_number)
-    #             index = self.average2ds_dict[class_number]
-    #             average2d = self.average2ds[class_number-1]
-    #             averaged_membrane = self.averaged_membranes[index]
-    #             membrane_mask = self.membrane_masks[index]
-    #             get_to_raw = Get2Raw(self.membrane_analysis_filename, average2d, averaged_membrane, rawimage_temp, membrane_mask, x0, y0, theta, memdist, kappa, psi, dx, dy)
-    #             get_to_raw.rotate_average_to_raw()
-    #             subtracted_membrane = get_to_raw.raw_membrane_average_subtract(self.bias, self.extra_mem_dist, self.scaling_factor_start, self.scaling_factor_end, self.scaling_factor_step)
-    #             print(f'>>>{df_rawimage_temp_section_num}@{rawimage_stacks_name} membrane subtracted')
-    #             rawimages_stacks_subtracted[df_rawimage_temp_section_num-1] = subtracted_membrane
-    #         subtracted_folder_path = os.path.join(os.path.dirname(rawimage_stacks_name).split('/')[0], 'subtracted')
-    #         os.makedirs(subtracted_folder_path, exist_ok=True)
-    #         subtracted_stacks_name = rawimage_stacks_name.replace('/extract/', '/subtracted/').replace('.mrc', '_subtracted.mrc')
-    #         mrcfile.new(subtracted_stacks_name, rawimages_stacks_subtracted.get(), overwrite=True)
-    #         print(f'>>> {subtracted_stacks_name} saved')
-
+    def fill_nan_with_gaussian_noise(self, image):
+            image_copy = image.copy()
+            mean_val = cp.nanmean(image_copy)
+            std_val = cp.nanstd(image_copy)
+            nan_mask = cp.isnan(image_copy)
+            noise = cp.random.normal(mean_val, std_val, image_copy.shape)
+            image_copy[nan_mask] = noise[nan_mask]
+            return image_copy
     def process_rawimage_stack(self, rawimage_stacks_name):
         with mrcfile.open(rawimage_stacks_name) as mrc:
             rawimages_stacks = cp.asarray(mrc.data)
@@ -110,6 +93,8 @@ class MembraneSubtract:
                 get_to_raw = Get2Raw(self.membrane_analysis_filename, average2d, averaged_membrane, rawimage_temp, membrane_mask, x0, y0, theta, memdist, kappa, psi, dx, dy)
                 get_to_raw.rotate_average_to_raw()
                 subtracted_membrane = get_to_raw.raw_membrane_average_subtract(self.bias, self.extra_mem_dist, self.scaling_factor_start, self.scaling_factor_end, self.scaling_factor_step)
+                if cp.isnan(subtracted_membrane).any():
+                    subtracted_membrane = self.fill_nan_with_gaussian_noise(subtracted_membrane)
                 # print(f'{df_rawimage_temp_section_num}@{rawimage_stacks_name} membrane subtracted')
             except Exception as e:
                 print(f"Error processing {df_rawimage_temp_section_num}@{rawimage_stacks_name}: {e}")
@@ -176,4 +161,3 @@ if __name__ == '__main__':
     batch_size = args.batch_size
     membrane_subtract = MembraneSubtract(particles_selected_filename, membrane_analysis_filename, bias, extra_mem_dist, scaling_factor_start, scaling_factor_end, scaling_factor_step)
     membrane_subtract.membrane_subtract_multiprocess(num_cpus=cpus_num, batch_size=batch_size)
-        
