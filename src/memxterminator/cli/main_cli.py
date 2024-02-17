@@ -1,4 +1,5 @@
 import sys
+import mrcfile
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtWidgets import QMainWindow, QFileDialog, QMessageBox, QApplication, QDialog
 from ..GUI.mainwindow_gui import Ui_MainWindow
@@ -55,10 +56,31 @@ class MainWindow(QMainWindow, Ui_MainWindow):
         if reply == QMessageBox.Ok:
             self.micrograph_membrane_subtraction_bezier_dialog = MicrographMembraneSubtraction_Bezier_App(self)
             self.micrograph_membrane_subtraction_bezier_dialog.show()
+
+def fix_mrc_file(fp):
+    """Try to fix .mrc file Map ID."""
+    try:
+        with mrcfile.open(fp, "r+", permissive=True) as mrc:
+            if not mrc.header.map == mrcfile.constants.MAP_ID:
+                mrc.header.map = mrcfile.constants.MAP_ID
+            if mrc.data is not None:
+                mrc.update_header_from_data()
+            else:
+                print(f"ERROR with {fp}: data is None!")
+        try:
+            with mrcfile.open(fp, "r") as mrc:
+                print(f"File {fp} opened successfully after fix.")
+        except ValueError as e:
+            print(f"ERROR with {fp}: {e}")
+    except Exception as e:
+        print(f"An unexpected error occurred with {fp}: {e}")
+
 def main():
+    """main client"""
     parser = argparse.ArgumentParser()
     subparsers = parser.add_subparsers(dest='command')
     parser_gui = subparsers.add_parser('gui')
+    parser_fixmapid = subparsers.add_parser('fixmapid')
     args = parser.parse_args()
 
     if args.command == 'gui':
@@ -66,3 +88,10 @@ def main():
         mainWin = MainWindow()
         mainWin.show()
         sys.exit(app.exec_())
+
+    if args.command == 'fixmapid':
+        if len(sys.argv) < 3:
+            print("Usage: MemXTerminator fixmapid <path_to_mrc_file> [<path_to_mrc_file> ...]")
+            sys.exit(1)
+        for file_path in sys.argv[2:]:
+            fix_mrc_file(file_path)
