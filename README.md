@@ -30,7 +30,7 @@ This software has a user-friendly GUI. To use this software, simply type:
 
 ```bash
 
-MemXTerminator gui
+MemXTerminator gui &
 
 ```
 

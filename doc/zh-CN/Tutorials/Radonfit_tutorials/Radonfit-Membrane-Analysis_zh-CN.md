@@ -6,11 +6,11 @@
 
 基本思路：
 
-* 使用Radon变换得到生物膜的旋转角度$\theta$以及生物膜bilayer之间的间距$d$；
-* 上一步已知了生物膜的旋转角度$\theta$，得到其切线方向，在切线方向上使用simulated membrane作为模版，与原始的2D average进行cross-correlation，得到生物膜的中心位置$(x_c, y_c)$；
-* 得到生物膜中心的准确位置$(x_c, y_c)$后，在中心处利用cross-correlation，匹配最佳的膜厚度，即2D gaussian的$\sigma_1$和$\sigma_2$值；
-* 根据之前得到的旋转角度$\theta$、中心位置$(x_c, y_c)$、$\sigma_1$和$\sigma_2$值，就相当于知道了一系列函数表达式，在给定的曲率$\kappa$范围内生成一系列simulated membrane以及对应的mask，分别计算与原始的2D average的cross-correlation值，确定最佳的曲率$\kappa$值（此时cross-correlation值最大）。
-* 根据上述得到的 $\kappa_{cur}, x_c, y_c, \sigma_1, \sigma_2, d, \theta$ ，就可以得到该类生物膜的函数表达式；根据这些信息对于每一个原始的2D average $f_{2DAverage}(x,y)$，就可以沿着函数进行轨迹平均得到对应的平均后的生物膜 $f_{AveragedMembrane}(x,y)$（简称$f_{AM}$ ）以及对应的蒙版$f_{MembraneMask}(x,y)$（简称$f_{MM}）$。
+* 使用Radon变换得到生物膜的旋转角度 $\theta$ 以及生物膜bilayer之间的间距 $d$ ；
+* 上一步已知了生物膜的旋转角度 $\theta$ ，得到其切线方向，在切线方向上使用simulated membrane作为模版，与原始的2D average进行cross-correlation，得到生物膜的中心位置 $(x_c, y_c)$ ；
+* 得到生物膜中心的准确位置 $(x_c, y_c)$ 后，在中心处利用cross-correlation，匹配最佳的膜厚度，即2D gaussian的 $\sigma_1$ 和 $\sigma_2$ 值；
+* 根据之前得到的旋转角度 $\theta$ 、中心位置 $(x_c, y_c)$ 、 $\sigma_1$ 和 $\sigma_2$ 值，就相当于知道了一系列函数表达式，在给定的曲率 $\kappa$ 范围内生成一系列simulated membrane以及对应的mask，分别计算与原始的2D average的cross-correlation值，确定最佳的曲率 $\kappa$ 值（此时cross-correlation值最大）。
+* 根据上述得到的 $\kappa_{cur}, x_c, y_c, \sigma_1, \sigma_2, d, \theta$ ，就可以得到该类生物膜的函数表达式；根据这些信息对于每一个原始的2D average $f_{2DAverage}(x,y)$，就可以沿着函数进行轨迹平均得到对应的平均后的生物膜 $f_{AveragedMembrane}(x,y)$（简称 $f_{AM}$ ）以及对应的蒙版 $f_{MembraneMask}(x,y)$ （简称 $f_{MM}$ ）。
 
 ## 2 具体操作流程
 
