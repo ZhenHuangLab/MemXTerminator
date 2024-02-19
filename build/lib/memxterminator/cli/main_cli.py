@@ -81,6 +81,7 @@ def main():
     subparsers = parser.add_subparsers(dest='command')
     parser_gui = subparsers.add_parser('gui')
     parser_fixmapid = subparsers.add_parser('fixmapid')
+    parser_fixmapid.add_argument('file', nargs='+', help='Path to .mrc file(s)')
     args = parser.parse_args()
 
     if args.command == 'gui':
@@ -90,8 +91,5 @@ def main():
         sys.exit(app.exec_())
 
     if args.command == 'fixmapid':
-        if len(sys.argv) < 3:
-            print("Usage: MemXTerminator fixmapid <path_to_mrc_file> [<path_to_mrc_file> ...]")
-            sys.exit(1)
         for file_path in sys.argv[2:]:
             fix_mrc_file(file_path)

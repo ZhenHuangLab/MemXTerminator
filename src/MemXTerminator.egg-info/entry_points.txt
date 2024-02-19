@@ -1,2 +1,3 @@
 [console_scripts]
 MemXTerminator = memxterminator.cli.main_cli:main
+
