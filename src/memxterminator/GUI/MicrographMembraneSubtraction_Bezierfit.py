@@ -77,8 +77,8 @@ class Ui_MicrographMembraneSubtraction_Bezierfit(object):
 
     def retranslateUi(self, MicrographMembraneSubtraction_Bezierfit):
         _translate = QtCore.QCoreApplication.translate
-        MicrographMembraneSubtraction_Bezierfit.setWindowTitle(_translate("MicrographMembraneSubtraction_Bezierfit", "Micrograph Membrane Subtraction - Bezierfit - MemXTerminator"))
-        self.particle_label_3.setText(_translate("MicrographMembraneSubtraction_Bezierfit", "Particle .cs file"))
+        MicrographMembraneSubtraction_Bezierfit.setWindowTitle(_translate("MicrographMembraneSubtraction_Bezierfit", "Micrograph Membrane Subtraction - MemXTerminator"))
+        self.particle_label_3.setText(_translate("MicrographMembraneSubtraction_Bezierfit", "Particles selected starfile"))
         self.particle_browse_pushButton_3.setText(_translate("MicrographMembraneSubtraction_Bezierfit", "Browse..."))
         self.LOG_label.setText(_translate("MicrographMembraneSubtraction_Bezierfit", "LOG"))
         self.cpus_lineEdit_3.setText(_translate("MicrographMembraneSubtraction_Bezierfit", "15"))

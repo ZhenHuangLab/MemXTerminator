@@ -137,7 +137,7 @@ class MembraneAnalyzerApp(QtWidgets.QDialog, Ui_MembraneAnalyzer):
         self.Kill_button.clicked.connect(self.kill_process)
         
         with open('run.out', 'a') as f:
-            f.write(f"Membrane Analysis ready.\n")
+            f.write(f"Radonfit Membrane Analysis ready.\n")
         self.last_read_position = 0
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.update_log)
@@ -210,7 +210,7 @@ class MembraneAnalyzerApp(QtWidgets.QDialog, Ui_MembraneAnalyzer):
         with open('run.out', 'w') as f:
             # self.process = subprocess.Popen(['python','-u', os.path.join(os.path.dirname(os.path.abspath(__file__)), 'membrane_analysis-main.py')] + params, stdout=f, stderr=subprocess.STDOUT)
             self.process = subprocess.Popen(['python','-u', '-m', 'memxterminator.radonfit.bin.membrane_analysis-main'] + params, stdout=f, stderr=subprocess.STDOUT)
-        print("Membrane Analysis started with PID:", self.process.pid)
+        print("Radonfit Membrane Analysis started with PID:", self.process.pid)
         with open(self.PID_FILE, 'w') as f:
             f.write(str(self.process.pid))
     def kill_process(self):
@@ -270,7 +270,7 @@ class MembraneSubtractionApp(QtWidgets.QDialog, Ui_MembraneSubtraction):
         self.kill_button.clicked.connect(self.kill_process)
         
         with open('run.out', 'a') as f:
-            f.write(f"Membrane Subtraction ready.\n")
+            f.write(f"Radonfit Membrane Subtraction ready.\n")
         self.last_read_position = 0
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.update_log)
@@ -303,7 +303,7 @@ class MembraneSubtractionApp(QtWidgets.QDialog, Ui_MembraneSubtraction):
                   '--batch_size', f'{self.batch_size}']
         with open('run.out', 'w') as f:
             self.process = subprocess.Popen(['python','-u', '-m', 'memxterminator.radonfit.bin.membrane_subtract-main'] + params, stdout=f, stderr=subprocess.STDOUT)
-        print("Membrane Subtraction started with PID:", self.process.pid)
+        print("Radonfit Membrane Subtraction started with PID:", self.process.pid)
         with open(self.PID_FILE, 'w') as f:
             f.write(str(self.process.pid))
     def kill_process(self):
@@ -355,7 +355,7 @@ class MicrographMembraneSubtraction_Radon_App(QtWidgets.QDialog, Ui_MicrographMe
         self.kill_pushButton.clicked.connect(self.kill_process)
         
         with open('run.out', 'a') as f:
-            f.write(f"Radonfit Micrograph Membrane Subtraction ready.\n")
+            f.write(f"Micrograph Membrane Subtraction ready.\n")
         self.last_read_position = 0
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.update_log)
@@ -373,7 +373,7 @@ class MicrographMembraneSubtraction_Radon_App(QtWidgets.QDialog, Ui_MicrographMe
             '--batch_size', f'{int(self.batch_size)}']
         with open('run.out', 'w') as f:
             self.process = subprocess.Popen(['python','-u', '-m', 'memxterminator.radonfit.bin.micrograph_mem_subtraction'] + params, stdout=f, stderr=subprocess.STDOUT)
-        print("Radon Micrograph Membrane Subtraction started with PID:", self.process.pid)
+        print("Micrograph Membrane Subtraction started with PID:", self.process.pid)
         with open(self.PID_FILE, 'w') as f:
             f.write(str(self.process.pid))
     def kill_process(self):

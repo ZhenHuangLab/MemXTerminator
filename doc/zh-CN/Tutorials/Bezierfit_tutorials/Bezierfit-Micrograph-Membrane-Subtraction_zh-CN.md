@@ -28,7 +28,7 @@
 
 在界面中，您需要填入以下文件路径：
 
-* `Particles .cs file`：目前暂不支持`.cs`文件。您需要使用`pyem`将`particles_selected.cs`文件转换成`particles_selected.star`文件，选择用于保存所有的particles信息的star文件，通常为`particles_selected.star`；
+* `Particles selected starfile`：目前暂不支持`.cs`文件。您需要使用`pyem`将`particles_selected.cs`文件转换成`particles_selected.star`文件（关于如何转换请见[这个文档](../Radonfit_tutorials/Radonfit-Membrane-Analysis_zh-CN.md)），选择用于保存所有的particles信息的star文件，通常为`particles_selected.star`；
 
 在界面可以选择设置这些参数：
 

@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: MemXTerminator
-Version: 1.1.0
+Version: 1.1.1
 Summary: A software for membrane analysis and subtraction in cryo-EM
 Home-page: https://github.com/ZhenHuangLab/MemXTerminator
 Author: Zhen Huang
@@ -13,18 +13,6 @@ Classifier: Programming Language :: Python :: 3.9
 Requires-Python: >=3.9
 Description-Content-Type: text/markdown
 License-File: LICENSE
-Requires-Dist: cryosparc-tools>=4.3.1
-Requires-Dist: deap==1.4.1
-Requires-Dist: matplotlib==3.7.2
-Requires-Dist: mrcfile==1.4.3
-Requires-Dist: multiprocess==0.70.15
-Requires-Dist: numpy>=1.25.2
-Requires-Dist: pandas==2.1.0
-Requires-Dist: PyQt5==5.15.9
-Requires-Dist: scikit-image==0.19.3
-Requires-Dist: scipy==1.11.1
-Requires-Dist: starfile==0.4.12
-Requires-Dist: cupy-cuda12x==12.2.0
 
 # MemXTerminator
 

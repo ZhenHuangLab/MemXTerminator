@@ -77,7 +77,7 @@ class Ui_MicrographMembraneSubtraction_Radonfit(object):
 
     def retranslateUi(self, MicrographMembraneSubtraction_Radonfit):
         _translate = QtCore.QCoreApplication.translate
-        MicrographMembraneSubtraction_Radonfit.setWindowTitle(_translate("MicrographMembraneSubtraction_Radonfit", "Micrograph Membrane Subtraction - Radonfit - MemXTerminator"))
+        MicrographMembraneSubtraction_Radonfit.setWindowTitle(_translate("MicrographMembraneSubtraction_Radonfit", "Micrograph Membrane Subtraction - MemXTerminator"))
         self.particles_selected_starfile_label.setText(_translate("MicrographMembraneSubtraction_Radonfit", "Particles selected starfile"))
         self.particles_selected_starfile_browse_pushButton.setText(_translate("MicrographMembraneSubtraction_Radonfit", "Browse..."))
         self.cpus_lineEdit.setText(_translate("MicrographMembraneSubtraction_Radonfit", "15"))

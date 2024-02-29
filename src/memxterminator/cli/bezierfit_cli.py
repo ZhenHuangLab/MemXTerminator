@@ -237,7 +237,7 @@ class MicrographMembraneSubtraction_Bezier_App(QtWidgets.QDialog, Ui_MicrographM
         self.kill_pushButton_3.clicked.connect(self.kill_process)
         
         with open('run.out', 'a') as f:
-            f.write(f"Bezier Micrograph Membrane Subtraction ready.\n")
+            f.write(f"Micrograph Membrane Subtraction ready.\nPlease ensure that you have converted the particles_selected.cs file to particles_selected.star file.\n")
         self.last_read_position = 0
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.update_log)
@@ -257,7 +257,7 @@ class MicrographMembraneSubtraction_Bezier_App(QtWidgets.QDialog, Ui_MicrographM
             '--batch_size', f'{int(self.batch_size)}']
         with open('run.out', 'w') as f:
             self.process = subprocess.Popen(['python','-u', '-m', 'memxterminator.bezierfit.bin.micrograph_mem_subtract_main'] + params, stdout=f, stderr=subprocess.STDOUT)
-        print("Bezier Micrograph Membrane Subtraction started with PID:", self.process.pid)
+        print("Micrograph Membrane Subtraction started with PID:", self.process.pid)
         with open(self.PID_FILE, 'w') as f:
             f.write(str(self.process.pid))
     def kill_process(self):

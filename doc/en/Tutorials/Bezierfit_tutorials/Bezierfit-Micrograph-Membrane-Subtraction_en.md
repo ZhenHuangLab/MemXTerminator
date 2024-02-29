@@ -28,7 +28,7 @@ The Micrograph Membrane Subtraction interface is as follows:
 
 In the interface, you need to enter the following file path:
 
-* `Particles .cs file`: Currently, `.cs` files are not supported. You need to use `pyem` to convert `particles_selected.cs` to `particles_selected.star`. Choose the star file that saves all particles information, usually `particles_selected.star`;
+* `Particles selected starfile`: Currently, `.cs` files are not supported. You need to use `pyem` to convert `particles_selected.cs` to `particles_selected.star`. (Please refer to [this doc](../Radonfit_tutorials/Radonfit-Membrane-Analysis_en.md) about how to convert the files) Choose the star file that saves all particles information, usually `particles_selected.star`;
 
 In the interface, you can set the following parameters:
 
