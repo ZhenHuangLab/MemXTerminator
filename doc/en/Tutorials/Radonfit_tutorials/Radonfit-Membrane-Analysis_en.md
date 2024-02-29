@@ -35,7 +35,7 @@ Since the Radonfit program in this software still reads particle information in 
 3. Use `pyem`  `csparc2star.py` to run the following command, converting `particles_selected.cs` into `particles_selected.star`:
     For the latest version of `pyem`, run the following command:
     ```bash
-    csparc2star.py --relion2 particles_selected.cs Jxxx_passthrough_particles_selected.cs particles_selected.star
+    csparc2star.py --relion2 --inverty particles_selected.cs Jxxx_passthrough_particles_selected.cs particles_selected.star
     ```
     If there is no relion2 parameter, it means your `pyem` version is older, run the following command:
     ```bash

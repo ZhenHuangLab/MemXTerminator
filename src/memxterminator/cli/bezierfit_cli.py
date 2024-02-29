@@ -253,7 +253,7 @@ class MicrographMembraneSubtraction_Bezier_App(QtWidgets.QDialog, Ui_MicrographM
     def start_process(self):
         self.particle = self.particle_lineEdit_3.text()
         params = ['--particle', f'{self.particle}',
-            '--cpus', f'{int(self.cpus)}',
+            '--cpu', f'{int(self.cpus)}',
             '--batch_size', f'{int(self.batch_size)}']
         with open('run.out', 'w') as f:
             self.process = subprocess.Popen(['python','-u', '-m', 'memxterminator.bezierfit.bin.micrograph_mem_subtract_main'] + params, stdout=f, stderr=subprocess.STDOUT)

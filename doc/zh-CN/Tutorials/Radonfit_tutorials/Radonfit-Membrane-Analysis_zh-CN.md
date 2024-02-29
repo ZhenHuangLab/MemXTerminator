@@ -37,7 +37,7 @@
 3. 使用`pyem`的`csparc2star.py`，运行如下命令，将`particles_selected.cs`转成`particles_selected.star`：
     对于最新版的`pyem`，运行如下命令：
     ```bash
-    csparc2star.py --relion2 particles_selected.cs Jxxx_passthrough_particles_selected.cs particles_selected.star
+    csparc2star.py --relion2 --inverty particles_selected.cs Jxxx_passthrough_particles_selected.cs particles_selected.star
     ```
     如果没有relion2参数，说明您的`pyem`版本较旧，运行如下命令：
     ```bash

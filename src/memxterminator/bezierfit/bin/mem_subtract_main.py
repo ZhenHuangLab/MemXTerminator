@@ -55,6 +55,15 @@ with open(args.control_points, 'r') as f:
 # name_pattern = '*.mrc'
 # file_name_list = glob.glob(f'{folder_path}/{name_pattern}')
 
+def fill_nan_with_gaussian_noise(image):
+    image_copy = image.copy()
+    mean_val = cp.nanmean(image_copy)
+    std_val = cp.nanstd(image_copy)
+    nan_mask = cp.isnan(image_copy)
+    noise = cp.random.normal(mean_val, std_val, image_copy.shape)
+    image_copy[nan_mask] = noise[nan_mask]
+    return image_copy
+
 def membrane_subtract(particle_filename):
     from ..lib.subtraction import MembraneSubtract
     start_time = time.time()
@@ -78,9 +87,14 @@ def membrane_subtract(particle_filename):
         if particle_stack.ndim == 2:
             subtractor = MembraneSubtract(control_points, particle_stack, psi, shift[0], shift[1], pixel_size, args.points_step, args.physical_membrane_dist)
             subtracted_particle_stack = subtractor.mem_subtract()
+            if cp.isnan(subtracted_particle_stack).any():
+                subtracted_particle_stack = fill_nan_with_gaussian_noise(subtracted_particle_stack)
         elif particle_stack.ndim == 3:
             subtractor = MembraneSubtract(control_points, particle_stack[particle_idx], psi, shift[0], shift[1], pixel_size, args.points_step, args.physical_membrane_dist)
-            subtracted_particle_stack[particle_idx] = subtractor.mem_subtract()
+            subtracted_particle = subtractor.mem_subtract()
+            if cp.isnan(subtracted_particle).any():
+                subtracted_particle = fill_nan_with_gaussian_noise(subtracted_particle)
+            subtracted_particle_stack[particle_idx] = subtracted_particle
         # print(f'{particle_idx}@{particle_filename} finished')
     # subtracted_particle_stack = cp.array(subtracted_particle_stack)
     # subtracted_particle_stack = subtracted_particle_stack.get()

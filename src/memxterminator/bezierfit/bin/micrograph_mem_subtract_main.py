@@ -65,8 +65,6 @@ class MicrographMembraneSubtract:
         micrograph_name = raw_mg_name[1]
         with mrcfile.open(rawimage_stacks_name.replace('/extract/', '/subtracted/')) as f:
             subtracted_images_stacks = cp.asarray(f.data)
-        with mrcfile.open(rawimage_stacks_name.replace('/extract/', '/subtracted/')) as f:
-            subtracted_images_stacks = cp.asarray(f.data)
         if subtracted_images_stacks.ndim == 2:
             subtracted_images_stacks = cp.expand_dims(subtracted_images_stacks, axis=0)
         else:
