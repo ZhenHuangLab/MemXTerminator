@@ -20,9 +20,13 @@ This software utilizes 2D averages and their corresponding alignment information
 * This software requires a GPU and CUDA acceleration. So, the installation of CUDA drivers and libraries is necessary.
 * [pyem](https://github.com/asarnow/pyem) is also needed to convert cryoSPARC’s `.cs` files to Relion’s `.star` format for processing.
 
+## Wiki
+
+This software has a very accessible [wiki](https://zhenhuanglab.github.io/MemXTerminator/) for better tutorial organization.
+
 ## Installation
 
-For specific installation methods, please refer to the wiki installation section.
+For specific installation methods, please refer to the [wiki installation section](https://zhenhuanglab.github.io/MemXTerminator/tutorials/installation/).
 
 ## Usage
 
@@ -34,7 +38,7 @@ MemXTerminator gui &
 
 ```
 
-For detailed usage tutorials, please refer to the wiki usage section.
+For detailed usage tutorials, please refer to the [wiki usage section](https://zhenhuanglab.github.io/MemXTerminator/tutorials/usage/).
 
 ## License
 
