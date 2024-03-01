@@ -1,0 +1,119 @@
+site_name: MemXTerminator Wiki
+repo_url: https://github.com/ZhenHuangLab/MemXTerminator
+repo_name: MemXTerminator
+site_description: A simple and beautiful wiki for MemXTerminator
+site_author: Zhen Huang
+
+theme:
+  name: material
+  custom_dir: ./wiki/overrides
+  language: en
+  favicon: assets/icons/favicon.svg
+  icon:
+    logo: simple/gitbook
+  font:
+    text: "Roboto Slab"
+    code: "Roboto Mono"
+  palette:
+  - media: "(prefers-color-scheme)"
+    toggle:
+      icon: material/brightness-auto
+      name: Switch to dark mode
+
+  # Palette toggle for light mode
+  - media: "(prefers-color-scheme: light)"
+    scheme: default 
+    toggle:
+      icon: material/brightness-7
+      name: Switch to system preference
+
+  # Palette toggle for dark mode
+  - media: "(prefers-color-scheme: dark)"
+    scheme: slate
+    toggle:
+      icon: material/brightness-4
+      name: Switch to light mode
+  features:
+    - navigation.instant
+    - navigation.instant.progress
+    - navigation.path
+    - navigation.indexes
+    - navigation.footer
+    - announce.dismiss
+    - toc.follow
+    - content.code.copy
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - search.share
+
+docs_dir: ./wiki/docs
+site_dir: ./wiki/site
+
+plugins:
+  - search
+
+markdown_extensions:
+  # Python Markdown
+  - abbr
+  - admonition
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+
+  # Python Markdown Extensions
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic
+  - pymdownx.details
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+extra_javascript:
+  - javascripts/mathjax.js
+  - javascripts/katex.js 
+  - javascripts/extra.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.js  
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/contrib/auto-render.min.js
+
+extra_css:
+  - https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.7/katex.min.css
+  - stylesheets/extra.css
+nav:
+  - Home: index.md
+  - Installation: ./tutorials/installation.md
+  - Usage: ./tutorials/usage.md
+  - Tutorials:
+    - "Basic workflow": ./tutorials/basic-workflow.md
+    - "Preprocessing": ./tutorials/preprocessing.md
+    - Radonfit: 
+      - ./tutorials/radonfit-tutorials/index.md
+      - Particle Membrane Analysis: ./tutorials/radonfit-tutorials/radonfit-mem-analysis.md
+      - Particle Membrane Subtraction: ./tutorials/radonfit-tutorials/radonfit-particle-mem-subtraction.md
+      - Micrograph Membrane Subtraction: ./tutorials/radonfit-tutorials/radonfit-mms.md
+    - Bezierfit:
+      - ./tutorials/bezierfit-tutorials/index.md
+      - Particle Membrane Analysis: ./tutorials/bezierfit-tutorials/bezierfit-mem-analysis.md
+      - Particle Membrane Subtraction: ./tutorials/bezierfit-tutorials/bezierfit-particle-mem-subtraction.md
+      - Micrograph Membrane Subtraction: ./tutorials/bezierfit-tutorials/bezierfit-mms.md
+  - Frequently Asked Questions: ./tutorials/faq.md

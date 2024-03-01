@@ -17,12 +17,12 @@ This software utilizes 2D averages and their corresponding alignment information
 
 ## Requirements
 
-* This software requires a GPU and CUDA acceleration, necessitating the installation of CUDA drivers and libraries, as well as the cupy library.
-* In some cases, [pyem](https://github.com/asarnow/pyem) is also needed to convert cryoSPARC’s `.cs` files to Relion’s `.star` format for processing.
+* This software requires a GPU and CUDA acceleration. So, the installation of CUDA drivers and libraries is necessary.
+* [pyem](https://github.com/asarnow/pyem) is also needed to convert cryoSPARC’s `.cs` files to Relion’s `.star` format for processing.
 
 ## Installation
 
-For specific installation methods, please refer to the installation document: [[Installation Document]](./doc/en/Installation_en.md) [[安装文档]](./doc/zh-CN/Installation_zh-CN.md)
+For specific installation methods, please refer to the wiki installation section.
 
 ## Usage
 
@@ -34,7 +34,7 @@ MemXTerminator gui &
 
 ```
 
-For detailed usage tutorials, please refer to the documentation: [[Usage Index]](./doc/index.md)
+For detailed usage tutorials, please refer to the wiki usage section.
 
 ## License
 
@@ -42,7 +42,7 @@ This software is licensed under GPL v3.0.
 
 ## Acknowledgement
 
-Thanks to Jack Zhang@Yale MBB for his guidance.
+Thanks to Jack(Kai) Zhang@Yale MBB for his guidance.
 
 ## Contributing
 
@@ -52,4 +52,4 @@ I am still working on improving this software. More exciting features are on the
 
 ## Contact
 
-If you have any questions, please contact me: zhen.victor.huang@gmail.com
+If you have any questions, please contact me: [zhen.victor.huang@gmail.com](mailto:zhen.victor.huang@gmail.com)
