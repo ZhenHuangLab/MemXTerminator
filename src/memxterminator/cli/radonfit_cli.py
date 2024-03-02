@@ -116,21 +116,21 @@ class MembraneAnalyzerApp(QtWidgets.QDialog, Ui_MembraneAnalyzer):
         self.info_json_name = None
         self.kappa_template = False
         self.process = None
-        self.kappa_number = self.kappa_num_textedit.text()
-        self.kappa_start_value = self.kappa_start_textedit.text()
-        self.kappa_end_value = self.kappa_end_textedit.text()
+        self.kappa_number = None
+        self.kappa_start_value = None
+        self.kappa_end_value = None
 
-        self.initialsigma1 = self.initialsigma1_textedit.text()
-        self.initialsigma2 = self.initialsigma2_textedit.text()
-        self.template_size = self.templatesize.text()
-        self.sigmarange = self.select_range_spinbox.value()
-        self.sigma_step = self.sigma_step_for_centerfit_textedit.text()
-        self.curve_kappa_start = self.curve_kappa_start_textedit.text()
-        self.curve_kappa_end = self.curve_kappa_end_textedit.text()
-        self.curve_kappa_step = self.curve_kappa_step_textedit.text()
-        self.edge_sigma_for_mask = self.edge_sigma_for_mask_textedit.text()
-        self.extra_mem_dist = self.extra_mem_dist_textedit.text()
-        self.mem_edge_sigma = self.edge_sigma_for_mem_average_textedit.text()
+        self.initialsigma1 = None
+        self.initialsigma2 = None
+        self.template_size = None
+        self.sigmarange = None
+        self.sigma_step = None
+        self.curve_kappa_start = None
+        self.curve_kappa_end = None
+        self.curve_kappa_step = None
+        self.edge_sigma_for_mask = None
+        self.extra_mem_dist = None
+        self.mem_edge_sigma = None
 
         self.check_running_process()
         self.Launch_button.clicked.connect(self.start_process)
@@ -292,6 +292,13 @@ class MembraneSubtractionApp(QtWidgets.QDialog, Ui_MembraneSubtraction):
     def start_process(self):
         self.mem_analysis_starfile_name = self.membrane_analysis_file_lineEdit.text()
         self.particles_starfile_name = self.particles_selected_starfile_lineEdit.text()
+        self.bias = self.Bias_lineEdit.text()
+        self.extra_mem_dist = self.Extra_mem_dist_lineEdit.text()
+        self.scaling_factor_start = self.Scaling_factor_start_lineEdit.text()
+        self.scaling_factor_end = self.Scaling_factor_end_lineEdit.text()
+        self.scaling_factor_step = self.Step_lineEdit.text()
+        self.cpu = self.CPU_lineEdit.text()
+        self.batch_size = self.Batch_size_lineEdit.text()
         params = ['--particles_selected_filename', f'{self.particles_starfile_name}',
                   '--membrane_analysis_filename', f'{self.mem_analysis_starfile_name}',
                   '--bias', f'{self.bias}',
@@ -304,6 +311,7 @@ class MembraneSubtractionApp(QtWidgets.QDialog, Ui_MembraneSubtraction):
         with open('run.out', 'w') as f:
             self.process = subprocess.Popen(['python','-u', '-m', 'memxterminator.radonfit.bin.membrane_subtract-main'] + params, stdout=f, stderr=subprocess.STDOUT)
         print("Radonfit Membrane Subtraction started with PID:", self.process.pid)
+        print(f'Radonfit Membrane Subtraction started using {self.cpu} CPUs and batch size of {self.batch_size}')
         with open(self.PID_FILE, 'w') as f:
             f.write(str(self.process.pid))
     def kill_process(self):
@@ -346,9 +354,8 @@ class MicrographMembraneSubtraction_Radon_App(QtWidgets.QDialog, Ui_MicrographMe
         self.setupUi(self)
         self.particles_selected_starfile_browse_pushButton.clicked.connect(self.particle_browse)
         self.process = None
-
-        self.cpus = self.cpus_lineEdit.text()
-        self.batch_size = self.batch_size_lineEdit.text()
+        self.cpus = None
+        self.batch_size = None
         self.particle = None
         self.check_running_process()
         self.launch_pushButton.clicked.connect(self.start_process)
@@ -368,12 +375,15 @@ class MicrographMembraneSubtraction_Radon_App(QtWidgets.QDialog, Ui_MicrographMe
             self.particle = filepath
     
     def start_process(self):
+        self.cpus = self.cpus_lineEdit.text()
+        self.batch_size = self.batch_size_lineEdit.text()
         params = ['--particles_selected_filename', f'{self.particle}',
             '--cpu', f'{int(self.cpus)}',
             '--batch_size', f'{int(self.batch_size)}']
         with open('run.out', 'w') as f:
             self.process = subprocess.Popen(['python','-u', '-m', 'memxterminator.radonfit.bin.micrograph_mem_subtraction'] + params, stdout=f, stderr=subprocess.STDOUT)
         print("Micrograph Membrane Subtraction started with PID:", self.process.pid)
+        print(f'Micrograph Membrane Subtraction started using {self.cpus} CPUs and batch size of {self.batch_size}')
         with open(self.PID_FILE, 'w') as f:
             f.write(str(self.process.pid))
     def kill_process(self):
@@ -385,12 +395,11 @@ class MicrographMembraneSubtraction_Radon_App(QtWidgets.QDialog, Ui_MicrographMe
                 os.remove(self.PID_FILE)
             self.timer.stop()
     def update_log(self):
-        # 读取日志文件内容
         try:
             with open('run.out', 'r') as f:
-                f.seek(self.last_read_position)  # 跳转到上次读取的位置
-                new_content = f.read()  # 读取新内容
-                self.last_read_position = f.tell()  # 更新读取的位置
+                f.seek(self.last_read_position)
+                new_content = f.read()
+                self.last_read_position = f.tell()
             if new_content:
                 self.LOG_textBrowser.append(new_content)
         except FileNotFoundError:
@@ -403,7 +412,6 @@ class MicrographMembraneSubtraction_Radon_App(QtWidgets.QDialog, Ui_MicrographMe
                 os.kill(pid, 0)  # Check if process is running
                 self.process = pid
                 print(f"Process with PID {pid} is still running!")
-                # Here, you can also update the GUI to show that the process is running
             except OSError:
                 print(f"Process with PID {pid} is not running.")
                 os.remove(self.PID_FILE)

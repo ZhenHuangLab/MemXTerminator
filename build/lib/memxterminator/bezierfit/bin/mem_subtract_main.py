@@ -9,7 +9,7 @@ import mrcfile
 import time
 import multiprocessing
 import argparse
-
+from setproctitle import setproctitle
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--particle', type=str, default='./particles_selected.cs')
@@ -66,6 +66,7 @@ def fill_nan_with_gaussian_noise(image):
 
 def membrane_subtract(particle_filename):
     from ..lib.subtraction import MembraneSubtract
+    setproctitle('MemXTerminator-bezPMS')
     start_time = time.time()
     with mrcfile.open(particle_filename, permissive=True) as mrc:
         particle_stack = mrc.data
@@ -98,10 +99,12 @@ def membrane_subtract(particle_filename):
         # print(f'{particle_idx}@{particle_filename} finished')
     # subtracted_particle_stack = cp.array(subtracted_particle_stack)
     # subtracted_particle_stack = subtracted_particle_stack.get()
-    with mrcfile.new(particle_filename.replace('/extract/', '/subtracted/'), overwrite=True) as mrc:
+    with mrcfile.new(particle_filename.replace('/extract/', '/subtracted/').replace('.mrc', '_subtracted.mrc'), overwrite=True) as mrc:
         mrc.set_data(subtracted_particle_stack.get())
     end_time = time.time()
-    print(f'{particle_filename}, {len(particle_idxes)} particles finished in {end_time - start_time} seconds')
+    with open('bezfit_pms_run_data.log', 'a') as f:
+        f.write(particle_filename + '\n')
+    print(f'>>> {particle_filename}, {len(particle_idxes)} particles finished in {end_time - start_time} seconds.')
     del subtracted_particle_stack
     del particle_stack
     del MembraneSubtract
@@ -114,6 +117,21 @@ def remove_duplicates_preserve_order(seq):
 
 def process_membrane_subtract(file_name_list):
     file_name_list = remove_duplicates_preserve_order(file_name_list)
+    print('>>> Preparing Beizerfit Particle Membrane Subtraction dataset...')
+    if not os.path.exists('bezfit_pms_run_data.log'):
+        with open('bezfit_pms_run_data.log', 'w') as f:
+            f.write('')
+        print('>>> Did not find bezierfit pms history. Creating a new bezfit_pms_run_data.log file.')
+    with open('bezfit_pms_run_data.log', 'r') as file:
+        finished_bezfit_particles_lst = [line.rstrip('\n') for line in file]
+    print(f'>>> Found {len(file_name_list)} raw particle stacks in total.')
+    for rawimage_particle_name in file_name_list:
+        if rawimage_particle_name[1] in finished_bezfit_particles_lst:
+            file_name_list.remove(rawimage_particle_name)
+        else:
+            pass
+    print(f'>>> Found {len(finished_bezfit_particles_lst)} finished particle stacks in bezfit_pms_run_data.log file. Removing them...')
+    print(f'>>> {len(file_name_list)-len(finished_bezfit_particles_lst)} particle stacks left to process.')
     for file_name in file_name_list:
         membrane_subtract(file_name)
 

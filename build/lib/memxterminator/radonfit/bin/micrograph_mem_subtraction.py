@@ -7,6 +7,7 @@ import os
 import argparse
 import multiprocessing
 from multiprocessing import Pool
+from setproctitle import setproctitle
 import time
 
 class MicrographMembraneSubtract:
@@ -59,7 +60,7 @@ class MicrographMembraneSubtract:
         return image_copy
     
     def process_micrograph_mem_subtract(self, raw_mg_name):
-
+        setproctitle('MemXTerminator-MMS')
         rawimage_stacks_name = raw_mg_name[0]
         micrograph_name = raw_mg_name[1]
         with mrcfile.open(rawimage_stacks_name.replace('/extract/', '/subtracted/').replace('.mrc', '_subtracted.mrc')) as f:
@@ -108,20 +109,62 @@ class MicrographMembraneSubtract:
         mem_mosaic_image /= weight_sum_image
         # mem_mosaic_image = cp.nan_to_num(mem_mosaic_image)
         micrograph_subtracted = micrograph_subtracted * (1 - mem_mosaic_image_mask) + mem_mosaic_image * mem_mosaic_image_mask
-
-        subtracted_folder_path = os.path.join(os.path.dirname(micrograph_name).split('/')[0], 'subtracted')
+        micrograph_name_split_list = os.path.dirname(micrograph_name).split('/')
+        subtracted_folder_path = os.path.join(micrograph_name_split_list[0], 'subtracted')
         os.makedirs(subtracted_folder_path, exist_ok=True)
-        subtracted_membrane_name = micrograph_name.replace('/motioncorrected/', '/subtracted/').replace('.mrc', '_subtracted.mrc')
+        subtracted_membrane_name = micrograph_name.replace(f'/{micrograph_name_split_list[1]}/', '/subtracted/').replace('.mrc', '_subtracted.mrc')
         with mrcfile.new(subtracted_membrane_name, overwrite=True) as f:
             f.set_data(micrograph_subtracted.get())
         # mrcfile.new(subtracted_membrane_name, micrograph_subtracted.get(), overwrite=True)
         print(f'>>> {subtracted_membrane_name} finished')
+
+        with open('mms_run_data.log', 'a') as f:
+            f.write(micrograph_name + '\n')
+
+        del micrograph_subtracted
+        del subtracted_images_stacks
+        del mem_mosaic_image
+        del weight_sum_image
+        del mem_mosaic_image_mask
+        del subtracted_image_temp
+        del subtracted_images
+        del df_rawimage_temp
+        del df_rawimage_temp_section_num
+        del df_rawimage_temp_X_Y
+        del rawimage_stacks_name
+        del micrograph_name
+        del subtracted_membrane_name
+        del subtracted_folder_path
+        del subtracted_image
+        cp.cuda.Stream.null.synchronize()
+        cp.cuda.MemoryPool().free_all_blocks()
     
+    # def worker(self, raw_mg_name):
+    #     setproctitle('MemXTerminator-MMS')
+    #     self.process_micrograph_mem_subtract(raw_mg_name)
+
     def micrograph_mem_subtract_multiprocessing(self, num_cpus, batch_size):
         multiprocessing.set_start_method('spawn')
         def chunks(lst, n):
             for i in range(0, len(lst), n):
                 yield lst[i:i + n]
+
+        print('>>> Preparing Micrograph Membrane Subtraction dataset...')
+        if not os.path.exists('mms_run_data.log'):
+            with open('mms_run_data.log', 'w') as f:
+                f.write('')
+            print('>>> Did not find mms history. Creating a new mms_run_data.log file.')
+        
+        with open('mms_run_data.log', 'r') as file:
+            finished_micrographs_lst = [line.rstrip('\n') for line in file]
+        print(f'>>> Found {len(self.raw_mg_name_lst)} raw micrographs in total.')
+        for rawimage_micrograph_name in self.raw_mg_name_lst:
+            if rawimage_micrograph_name[1] in finished_micrographs_lst:
+                self.raw_mg_name_lst.remove(rawimage_micrograph_name)
+            else:
+                pass
+        print(f'>>> Found {len(finished_micrographs_lst)} finished micrographs in mms_run_data.log file. Removing them...')
+        print(f'>>> {len(self.raw_mg_name_lst)-len(finished_micrographs_lst)} micrographs left to process.')
         minibatches = list(chunks(self.raw_mg_name_lst, batch_size))
         i = 1
         total_len = len(minibatches)

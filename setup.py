@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='MemXTerminator',
-    version='1.1.1',
+    version='1.2.0',
     packages=find_packages(where='src'),
     package_dir={'': 'src'},
     author='Zhen Huang',
@@ -26,7 +26,8 @@ setup(
         'scikit-image==0.19.3',
         'scipy==1.11.1',
         'starfile==0.4.12',
-        'cupy-cuda12x==12.2.0'
+        'cupy-cuda12x==12.2.0',
+        'setproctitle==1.3.3'
     ],
     classifiers=[
         'Development Status :: 4 - Beta',

@@ -7,6 +7,7 @@ import argparse
 import os
 from multiprocessing import Pool
 import multiprocessing
+from setproctitle import setproctitle
 import time
 
 class MembraneSubtract:
@@ -64,14 +65,15 @@ class MembraneSubtract:
         df_temp_dict_psi_dx_dy_class = dict(zip(rawimage_sections_lst, zip_lst))
         return df_temp_dict_psi_dx_dy_class
     def fill_nan_with_gaussian_noise(self, image):
-            image_copy = image.copy()
-            mean_val = cp.nanmean(image_copy)
-            std_val = cp.nanstd(image_copy)
-            nan_mask = cp.isnan(image_copy)
-            noise = cp.random.normal(mean_val, std_val, image_copy.shape)
-            image_copy[nan_mask] = noise[nan_mask]
-            return image_copy
+        image_copy = image.copy()
+        mean_val = cp.nanmean(image_copy)
+        std_val = cp.nanstd(image_copy)
+        nan_mask = cp.isnan(image_copy)
+        noise = cp.random.normal(mean_val, std_val, image_copy.shape)
+        image_copy[nan_mask] = noise[nan_mask]
+        return image_copy
     def process_rawimage_stack(self, rawimage_stacks_name):
+        setproctitle('MemXTerminator-radPMS')
         with mrcfile.open(rawimage_stacks_name) as mrc:
             rawimages_stacks = cp.asarray(mrc.data)
         # rawimages_stacks = cp.asarray(mrcfile.open(rawimage_stacks_name).data)
@@ -105,7 +107,12 @@ class MembraneSubtract:
                 rawimages_stacks_subtracted[df_rawimage_temp_section_num-1] = subtracted_membrane
             del get_to_raw
             del subtracted_membrane
+            del rawimage_temp
+            del average2d
+            del averaged_membrane
+            del membrane_mask
             cp.cuda.Stream.null.synchronize()
+            cp.cuda.MemoryPool().free_all_blocks()
         subtracted_folder_path = os.path.join(os.path.dirname(rawimage_stacks_name).split('/')[0], 'subtracted')
         os.makedirs(subtracted_folder_path, exist_ok=True)
         
@@ -115,16 +122,36 @@ class MembraneSubtract:
             mrc.set_data(rawimages_stacks_subtracted)
         # mrcfile.new(subtracted_stacks_name, rawimages_stacks_subtracted.get(), overwrite=True)
         print(f'>>> {subtracted_stacks_name} saved')
+        with open('radfit_pms_run_data.log', 'a') as f:
+            f.write(rawimage_stacks_name + '\n')
         del rawimages_stacks
         del rawimages_stacks_subtracted
         cp.cuda.Stream.null.synchronize()
+        cp.cuda.MemoryPool().free_all_blocks()
 
     def membrane_subtract_multiprocess(self, num_cpus, batch_size):
         multiprocessing.set_start_method('spawn')
-        num_cpus = num_cpus
+
         def chunks(lst, n):
             for i in range(0, len(lst), n):
                 yield lst[i:i + n]
+        
+        print('>>> Preparing Radonfit Particle Membrane Subtraction dataset...')
+        if not os.path.exists('radfit_pms_run_data.log'):
+            with open('radfit_pms_run_data.log', 'w') as f:
+                f.write('')
+            print('>>> Did not find radfit pms history. Creating a new radfit_pms_run_data.log file.')
+        with open('radfit_pms_run_data.log', 'r') as file:
+            finished_radfit_particles_lst = [line.rstrip('\n') for line in file]
+        print(f'>>> Found {len(self.rawimage_stacks_name_lst)} raw particle stacks in total.')
+        for rawimage_particle_name in self.rawimage_stacks_name_lst:
+            if rawimage_particle_name in finished_radfit_particles_lst:
+                self.rawimage_stacks_name_lst.remove(rawimage_particle_name)
+            else:
+                pass
+        print(f'>>> Found {len(finished_radfit_particles_lst)} finished particle stacks in radfit_pms_run_data.log file. Removing them...')
+        print(f'>>> {len(self.rawimage_stacks_name_lst)-len(finished_radfit_particles_lst)} particle stacks left to process.')
+
         minibatches = list(chunks(self.rawimage_stacks_name_lst, batch_size))
         i = 1
         total_len = len(minibatches)

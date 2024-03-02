@@ -21,19 +21,19 @@ class MembraneAnalyzer_Bezier_App(QtWidgets.QDialog, Ui_MembraneAnalyzer_Bezierf
         self.particle_filename = None
         self.output_filename = None
 
-        self.template_filename = self.template_lineEdit.text()
-        self.particle_filename = self.particle_lineEdit.text()
-        self.output_filename = self.output_lineEdit.text()
+        self.template_filename = None
+        self.particle_filename = None
+        self.output_filename = None
 
-        self.degree = self.bezier_curve_degree_lineEdit.text()
-        self.physical_membrane_dist = self.physical_membrane_distance_lineEdit.text()
-        self.coarsefit_points_num = self.coarsefit_points_number_lineEdit.text()
-        self.coarsefit_iter = self.coarsefit_iter_lineEdit.text()
-        self.coarsefit_cpus = self.coarsefit_cpus_lineEdit.text()
-        self.curve_penalty_thr = self.curve_penalty_thr_lineEdit.text()
-        self.dithering_range = self.dithering_range_lineEdit.text()
-        self.refine_iter = self.refine_iter_lineEdit.text()
-        self.refine_cpus = self.refine_cpus_lineEdit.text()
+        self.degree = None
+        self.physical_membrane_dist = None
+        self.coarsefit_points_num = None
+        self.coarsefit_iter = None
+        self.coarsefit_cpus = None
+        self.curve_penalty_thr = None
+        self.dithering_range = None
+        self.refine_iter = None
+        self.refine_cpus = None
 
         self.check_running_process()
         self.launch_pushButton.clicked.connect(self.start_process)
@@ -141,8 +141,8 @@ class ParticleMembraneSubtraction_Bezier_App(QtWidgets.QDialog, Ui_ParticleMembr
         self.particle = None
         self.control_points_filename = None
 
-        self.physical_membrane_dist = self.physical_membrane_dist_lineEdit.text()
-        self.points_step = self.points_step_lineEdit.text()
+        self.physical_membrane_dist = None
+        self.points_step = None
 
         self.check_running_process()
         self.launch_pushButton.clicked.connect(self.start_process)
@@ -177,6 +177,8 @@ class ParticleMembraneSubtraction_Bezier_App(QtWidgets.QDialog, Ui_ParticleMembr
         self.template = self.template_lineEdit.text()
         self.particle = self.particle_lineEdit.text()
         self.control_points_filename = self.controlpoints_lineEdit.text()
+        self.physical_membrane_dist = self.physical_membrane_dist_lineEdit.text()
+        self.points_step = self.points_step_lineEdit.text()
         params = ['--template', f'{self.template}',
             '--particle', f'{self.particle}',
             '--control_points', f'{self.control_points_filename}',
@@ -229,8 +231,8 @@ class MicrographMembraneSubtraction_Bezier_App(QtWidgets.QDialog, Ui_MicrographM
         self.process = None
 
         self.particle = None
-        self.cpus = self.cpus_lineEdit_3.text()
-        self.batch_size = self.batch_size_lineEdit_3.text()
+        self.cpus = None
+        self.batch_size = None
 
         self.check_running_process()
         self.launch_pushButton_3.clicked.connect(self.start_process)
@@ -252,12 +254,15 @@ class MicrographMembraneSubtraction_Bezier_App(QtWidgets.QDialog, Ui_MicrographM
     
     def start_process(self):
         self.particle = self.particle_lineEdit_3.text()
+        self.cpus = self.cpus_lineEdit_3.text()
+        self.batch_size = self.batch_size_lineEdit_3.text()
         params = ['--particle', f'{self.particle}',
             '--cpu', f'{int(self.cpus)}',
             '--batch_size', f'{int(self.batch_size)}']
         with open('run.out', 'w') as f:
             self.process = subprocess.Popen(['python','-u', '-m', 'memxterminator.bezierfit.bin.micrograph_mem_subtract_main'] + params, stdout=f, stderr=subprocess.STDOUT)
         print("Micrograph Membrane Subtraction started with PID:", self.process.pid)
+        print(f'Micrograph Membrane Subtraction started using {self.cpus} CPUs and batch size of {self.batch_size}')
         with open(self.PID_FILE, 'w') as f:
             f.write(str(self.process.pid))
     def kill_process(self):
@@ -269,12 +274,11 @@ class MicrographMembraneSubtraction_Bezier_App(QtWidgets.QDialog, Ui_MicrographM
                 os.remove(self.PID_FILE)
             self.timer.stop()
     def update_log(self):
-        # 读取日志文件内容
         try:
             with open('run.out', 'r') as f:
-                f.seek(self.last_read_position)  # 跳转到上次读取的位置
-                new_content = f.read()  # 读取新内容
-                self.last_read_position = f.tell()  # 更新读取的位置
+                f.seek(self.last_read_position)
+                new_content = f.read()
+                self.last_read_position = f.tell()
             if new_content:
                 self.LOG_textBrowser.append(new_content)
         except FileNotFoundError:
@@ -287,7 +291,6 @@ class MicrographMembraneSubtraction_Bezier_App(QtWidgets.QDialog, Ui_MicrographM
                 os.kill(pid, 0)  # Check if process is running
                 self.process = pid
                 print(f"Process with PID {pid} is still running!")
-                # Here, you can also update the GUI to show that the process is running
             except OSError:
                 print(f"Process with PID {pid} is not running.")
                 os.remove(self.PID_FILE)
