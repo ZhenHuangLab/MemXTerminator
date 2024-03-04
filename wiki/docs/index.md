@@ -3,14 +3,14 @@ comments: true
 ---
 # Welcome to MemXTerminator Wiki!
 
-A software for membrane analysis and subtraction in cryo-EM.
+MemXTerminator is a software for membrane analysis and subtraction in cryo-EM.
 
 ![MemXTerminator](./assets/images/0-1.png)
 <span class="caption">MemXTerminator</span>
 
 ## Overview
 
-This software utilizes 2D averages and their corresponding alignment information, employing methods such as Radon transformation, cross-correlation, L1 norm, Bezier curves, Monte Carlo simulations, and genetic algorithms. It analyzes and subtracts membranes of any shape in cryo-EM, ultimately producing particle stacks and micrographs with membrane signals removed, suitable for subsequent membrane protein analysis.
+This software utilizes 2D averages and their corresponding alignment information, employing methods such as Radon transform, cross-correlation, L1 norm, Bezier curves, Monte Carlo simulations, and Genetic Algorithm. It analyzes and subtracts membranes of any shape in cryo-EM, ultimately producing particle stacks and micrographs with membrane signals removed, which are suitable for subsequent membrane protein analysis.
 
 ## Features
 
@@ -56,4 +56,4 @@ I am still working on improving this software. More exciting features are on the
 
 ## Contact
 
-If you have any questions, please contact me: [zhen.victor.huang@gmail.com](mailto:zhen.victor.huang@gmail.com)
+If you have any questions, please feel free to contact me: [zhen.victor.huang@gmail.com](mailto:zhen.victor.huang@gmail.com)

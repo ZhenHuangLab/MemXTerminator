@@ -26,7 +26,7 @@ For more details you can refer to these links:
 * [Handling corrupt or bad-header MRC files #544](https://github.com/ComputationalCryoEM/ASPIRE-Python/issues/544)
 * [Permissive read mode](https://mrcfile.readthedocs.io/en/stable/usage_guide.html#permissive-read-mode)
 
-You can use this command to fix the mrc files:
+You can use this command to fix the `.mrc` files:
 
 ```bash
 

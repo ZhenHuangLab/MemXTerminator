@@ -10,6 +10,14 @@ comments: true
 
 **A:** When I was developing the software, it turned out that the subtraction would be much faster using CUDA, so I chose to put most of the computational work on the GPUs. (Maybe it's a good idea to develop another CPU version of this software.) But for now, I don't think a CPU cluster will work. More CPUs just mean that more jobs will run in parallel and it takes more GPU memory. So I think more GPU memory would be better to accelerate this process because you can execute more jobs in the meantime.
 
+2) **Q:** Memory leakage problems like:
+
+> BrokenPipeError: [Errno 32] Broken pipe
+> 
+> multiprocessing/resource_tracker.py:216: UserWarning: resource_tracker: There appear to be 6 leaked semaphore objects to clean up at shutdown warnings.warn('resource_tracker: There appear to be %d '
+
+**A:** This problem was probably due to memory leakage. You can try to use less cpus and smaller batch size. I’ve optimized the software so it should manage the GPU memory more properly. Please note that when you kill the process manually, it is possible that the BrokenPipeError may come up again but I think you can just skip that.
+
 ## Speed and Time
 
 1) **Q:** How can I know the estimated time for the membrane subtraction, just like particle subtraction process in Relion?
@@ -18,7 +26,7 @@ comments: true
 
 2) **Q:** How fast is the particle membrane subtraction?
 
-**A:** When the software ran on a workstation which has 24 CPUs and one RTX4090 (24GB) using the default parameters, the speed was about 10 particles per second. (In this case, 18 CPUs are being used; the graphic card is almost full of memory; Volatile GPU-util is about 100%.)
+**A:** When the software ran on a workstation which has 24 CPUs and one RTX4090 (24GB) using the default parameters, the speed was about 10 particles per second. (In this case, 18 CPUs were being used; the graphic card was almost full of memory; Volatile GPU-util was about 100%.)
 
 3) **Q:** Will Micrograph Membrane Subtraction take a similarly long time as the Particle Membrane Subtraction?
 
@@ -36,7 +44,7 @@ comments: true
 
 2) **Q:** If my job fails or suddenly stops, can I continue the membrane subtraction or do I need to restart it?
 
-**A:** Unfortunately, you need to restart it. I think this actually needs to be improved in the future. But, this software ran continuously for 6 days when I used it before and everything just went well.
+**A:** Yes, you can continue to do membrane subtraction if your job suddenly fails. The software will read the `run_data.log` file every time you begin to do membrane subtraction, and the finished particle stacks/micrographs in the `run_data.log` will be skipped. By the way, this software ran continuously for 6 days when I used it before and everything just went well.
 
 3) **Q:** I was faced with a problem like this: `ValueError: Map ID string not found - not an MRC file, or file is corrupt` when doing Micrograph Membrane Subtraction. I'm sure that the micrographs should be fine.
 
@@ -56,3 +64,9 @@ MemXTerminator fixmapid <path_to_mrc_file>
 **Q:** The membrane subtraction can only remove the membrane signal from the side view. Can it also remove the membrane signal from the top view?
 
 **A:** Good question. Actually I didn't take the top view into consideration and I have no idea how to localize and remove the membrane signal from the top view now. I think I need to find other ways out. But in practice, it seems that weakening or removing membrane signals from the side view is sufficient to reduce the effect of membrane signals on membrane proteins. We still need to try and test more.
+
+## CTF estimation
+
+**Q:** Can the membrane-subtracted micrographs directly do the CTF-estimation independently?
+
+**A:** Theoretically, you can just take the subtracted micrographs as the raw micrographs, because all the other things are the same except the membrane signal, so I think it's okay to do the CTF estimation on the subtracted micrographs. I think it would be better to do CTF estimation before membrane subtraction.
