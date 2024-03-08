@@ -28,7 +28,7 @@ If there is no `--relion2` parameter, it means that your [pyem](https://github.c
 csparc2star.py --swapxy particles_selected.cs Jxxx_passthrough_particles_selected.cs particles_selected.star
 ```
 
-## Obtain 2D Averages
+## Obtain 2D Averages (`Radonfit` only)
 
 ### 1 General Idea
 
@@ -43,13 +43,13 @@ The role of this approach is that it simplifies and increases the accuracy of su
 First, we need to obtain a 2D average in `cryoSPARC`, where the biological membrane signal is strong and the signal-to-noise ratio is high. As our method aims to weaken the membrane signal, it should not be difficult to find such a 2D average.
 
 ![A typical biological membrane 2D average, choose the first one for analysis](../assets/images/1_1.png){: .small}
-<span class="caption">A typical biological membrane 2D average, choose the first one for analysis</span>
+<span class="caption">Some typical biological membrane 2D averages, choose the first one for analysis</span>
 
 For example, we choose the first 2D average in the above image for analysis. For convenience in `cryoSPARC`, when selecting 2D Classes, we only need to choose this one 2D average.
 
 #### 2.2 Using GUI for Radon Analysis Blinking
 
-Open the main program of `MemXTerminator` and enter the `Radon Analysis Blinking` interface:
+Open the main program of `MemXTerminator`, select `Radonfit` mode, and enter the `Radon Analysis Blinking` interface:
 
 ![Radon Analysis Blinking Interface](../assets/images/2_1-1.png){: .small}
 <span class="caption">Radon Analysis Blinking Interface</span>
@@ -60,15 +60,15 @@ Open the main program of `MemXTerminator` and enter the `Radon Analysis Blinking
 * Click `START Radon Analysis!`. After the analysis is completed, a window will pop up showing the results of the Radon transform. If you see the location of the two red crosses is accurate (usually the same horizontal coordinate and a vertical interval equal to the distance of the biological membrane), it indicates a successful analysis, and you can close the window. If the coordinate of the two red crosses is inaccurate, please re-adjust the parameters and click `START Radon Analysis!` again until the two red crosses are properly located;
 
     ![Successful Radon Analysis Example](../assets/images/1_3.png){: .small}
-    <span class="caption">Successful Radon Analysis Example</span>
+    <span class="caption">An Example for Radon Analysis Result</span>
 
 * After analyzing this `.mrc` file, choose a path to save the JSON file with these parameters and then save them.
 
 #### 2.3 Generating a Series of 2D Average Templates with the Membrane Center at the Image Center
 
-Open the main program of `MemXTerminator` and enter the `Membrane Analyzer` interface:
+Open the main program of `MemXTerminator`, select `Radonfit` mode, and enter the `Membrane Analyzer` interface:
     ![Membrane Analyzer Interface](../assets/images/1_4.png){: .small}
-    <span class="caption">Membrane Analyzer Interface</span>
+    <span class="caption">Radonfit Membrane Analyzer Interface</span>
 
 * Check `Generate kappa templates`;
 * `Which template?`: Choose which section to use as a reference to generate 2D average templates. By default, choose 0, i.e., the first particle in this stack as a reference;
@@ -80,7 +80,7 @@ Open the main program of `MemXTerminator` and enter the `Membrane Analyzer` inte
 You will obtain the following 2D averages templates:
 
 ![Generated 2D Average Templates](../assets/images/kappa-templates-image.gif){: .small}
-<span class="caption">Generated 2D Average Templates</span>
+<span class="caption">An Example for Generated 2D Average Templates</span>
 
 #### 2.4 Picking Particles Using the Generated 2D Average Templates
 

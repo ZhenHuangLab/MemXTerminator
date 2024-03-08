@@ -6,12 +6,27 @@ comments: true
 
 ## GUI
 
-This software has a user-friendly GUI. To use this software, simply type:
+This software has a user-friendly GUI. To use this software:
+
+First enter into the conda environment you create or you have installed the `MemXTerminator`, like:
+
+```bash
+
+conda activate mxt
+
+```
+
+Then simply type:
 
 ```bash
 
 MemXTerminator gui &
 ```
+
+You should see the interface now:
+
+![GUI](../assets/images/gui.png){: .small}
+<span class="caption">MemXTerminator GUI</span>
 
 ## Fix Map ID
 

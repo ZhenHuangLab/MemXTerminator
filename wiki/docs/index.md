@@ -26,7 +26,7 @@ This software utilizes 2D averages and their corresponding alignment information
 
 ## Installation
 
-For specific installation methods, please refer to the installation section.
+For specific installation methods, please refer to the **Installation** section.
 
 ## Usage
 
@@ -38,15 +38,15 @@ MemXTerminator gui &
 
 ```
 
-For detailed usage tutorials, please refer to the usage section.
+For detailed usage tutorials, please refer to the **Usage** section.
 
 ## License
 
-This software is licensed under GPL v3.0.
+This software is licensed under [GPL v3.0](https://www.gnu.org/licenses/gpl-3.0-standalone.html).  <a href="https://www.gnu.org/licenses/gpl-3.0.html"><img src="https://www.gnu.org/graphics/gplv3-with-text-84x42.png"></a>
 
 ## Acknowledgement
 
-Thanks to Jack(Kai) Zhang@Yale MBB for his guidance.
+Thanks to [Jack(Kai) Zhang@Yale MB&B](https://medicine.yale.edu/profile/jack-zhang/) for his guidance.
 
 ## Contributing
 

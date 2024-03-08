@@ -8,7 +8,7 @@ comments: true
 ## Basic Concept
 
 1. Use `cryoSPARC` to select particles with the biological membrane at the image center and their corresponding 2D averages;
-2. For each 2D average, use methods like Radon transformation and Bezier curve fitting to derive the mathematical model of that type of biological membrane, which includes information about the membrane center, angle, curvature, etc. (for Radonfit) or the coordinates of some control points of bezier curves (for Bezierfit);
+2. For each 2D average, use methods like Radon transform and Bezier curve fitting to derive the mathematical model of that type of biological membrane, which includes information about the membrane center, angle, curvature, etc. (for Radonfit) or the coordinates of some control points of bezier curves (for Bezierfit);
 3. Based on the mathematical model of the biological membrane and alignment information in `cryoSPARC`, perform membrane subtraction on all raw images of that type of biological membrane to obtain a particle stack after membrane subtraction;
 4. Place the membrane-subtracted particle stacks back into the original micrographs for subsequent analysis. For example, you can re-pick the protein-of-interest in these membrane-subtracted micrographs.
 

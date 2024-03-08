@@ -10,7 +10,7 @@ comments: true
 * With the angle $\theta$, determine the tangential direction. In this direction, use a simulated membrane as a template to perform cross-correlation with the original 2D average, identifying the membrane's center position $(x_c, y_c)$ ;
 * Once the precise location of the membrane center $(x_c, y_c)$ is determined, use cross-correlation at the center to match the optimal monolayer membrane thickness, i.e., the $\sigma_1$ and $\sigma_2$ values of the 2D Gaussian;
 * Based on the previously determined angle $\theta$, center position $(x_c, y_c)$, $\sigma_1$, and $\sigma_2$ values, and considering a range of curvatures $\kappa$, generate a series of simulated membranes and corresponding masks. Then, calculate the cross-correlation values with the original 2D average to determine the best curvature $\kappa$ (where the cross-correlation value is the highest).
-* With the derived $\kappa_{cur}, x_c, y_c, \sigma_1, \sigma_2, d, \theta$, the mathematical model for that type of biological membrane can be built. For each original 2D average $f_{2DAverage}(x,y)$, this allows the calculation of the corresponding averaged biological membrane $f_{AveragedMembrane}(x,y)$ (abbreviated as $f_{AM}$) and the corresponding membrane mask $f_{MembraneMask}(x,y)$ ( $f_{MM}$ ).
+* With the derived $\kappa_{cur}, x_c, y_c, \sigma_1, \sigma_2, d, \theta$, the mathematical model for that type of biological membrane can be built. For each original 2D average $f_{2DAverage}(x,y)$, this allows the calculation of the corresponding averaged biological membrane $f_{AveragedMembrane}(x,y)$ (abbreviated as $f_{AM}(x,y)$) and the corresponding membrane mask $f_{MembraneMask}(x,y)$ ( $f_{MM}(x,y)$ ).
 
 ## 2 Specific Steps
 
@@ -62,9 +62,9 @@ Since the Radonfit in this software still reads particle information in the `Rel
 
 <span class="caption">Radon Analysis Blinking</span>
 
-2) Select the `.mrc` file of the 2D averages you wish to analyze. Entering Section allows for previewing different sections;
+1) Select the `.mrc` file of the 2D averages you wish to analyze. Entering Section allows for previewing different sections;
 
-3) Fill in a suitable JSON file save path: click Browse, choose a folder, then enter a JSON file name in that folder, such as `radon_analysis.json`. This JSON file will be used to save the parameters obtained from `Radon Analysis Blinking`, which you can use in the next step of Membrane Analysis.
+2) Fill in a suitable JSON file save path: click Browse, choose a folder, then enter a JSON file name in that folder, such as `radon_analysis.json`. This JSON file will be used to save the parameters obtained from `Radon Analysis Blinking`, which you can use in the next step of Membrane Analysis.
 
 !!! note
     Once you enter a JSON file name, the software will automatically create a corresponding JSON file and fill in default parameters: `crop rate` of 0.6, `threshold` of 0.7, `theta_start` of 0, and `theta_end` of 180.
@@ -88,12 +88,12 @@ Since the Radonfit in this software still reads particle information in the `Rel
 
 ### 2.3 Membrane Analysis
 
-1) Open the MemXTerminator main program and enter the Membrane Analyzer interface:
+1) Open the `MemXTerminator` main program and enter the `Membrane Analyzer` interface:
 
 ![Membrane Analyzer](../../assets/images/2_1-4.png){: .small}
 <span class="caption">Membrane Analyzer</span>
 
-2) Click on `Import files` and sequentially input the previously obtained `templates_selected.star`, `particles_selected.star`, specify the path to save the results of the Membrane analysis parameters, and then input the JSON file of the previous Radon Analysis results. Remember not to check `Generate kappa templates`.
+1) Click on `Import files` and sequentially input the previously obtained `templates_selected.star`, `particles_selected.star`, specify the path to save the results of the Membrane analysis parameters, and then input the JSON file of the previous Radon Analysis results. Remember not to check `Generate kappa templates`.
 
 ![Membrane Analyzer Input](../../assets/images/2_1-5.png){: .small}
 <span class="caption">Membrane Analyzer Input</span>
