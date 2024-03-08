@@ -2,7 +2,7 @@
 
 A software for membrane analysis and subtraction in cryo-EM.
 
-![overview](./doc/img/0-1.png)
+![overview](./wiki/docs/assets/images/0-1.png)
 
 ## Overview
 
