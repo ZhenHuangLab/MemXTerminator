@@ -10,16 +10,7 @@ from cupyx.scipy.signal import correlate2d
 
 class Curve:
     def __init__(self, output_filename, i, image, y0, x0, theta, kappa):
-        # self.radonanalyze = RadonAnalyzer(image, thr=thr)
-        # self.centerfit = Template_centerfitting(3, 3, image, thr=thr)
         df_star = readstar(output_filename)
-        # self.y0, self.x0 = df_star.loc[0, 'rlnCenterX'], df_star.loc[0, 'rlnCenterY'] # center of membrane
-        # if mode == 0:
-        #     self.theta = df_star.loc[0, 'rlnAngleTheta'] * np.pi / 180
-        # elif mode == 1:
-        #     self.theta = theta
-        #     # self.y0, self.x0 = self.centerfit.centerfinder() # center of membrane
-        #     self.y0, self.x0 = y0, x0
         self.y0 = y0
         self.x0 = x0
         self.theta = theta
@@ -80,17 +71,16 @@ class Curve:
             return self.distance_matrix
     def generate_membrane(self):
         self.distance_matrix = self.compute()
+        if self.kappa >= 0:
+            self.distance_matrix = -self.distance_matrix
         self.simulate_membrane = gaussian2_gpu(self.distance_matrix, self.membrane_distance, self.sigma1, self.sigma2)
         return self.simulate_membrane
 
 class Curvefitting:
     def __init__(self, output_filename, i, image, kappa_start, kappa_end, kappa_step):
-        # self.thr = thr
         df_star = readstar(output_filename)
         self.output_filename = output_filename
         self.i = i
-        # radonanalyze = RadonAnalyzer(image, thr=thr)
-        # centerfit = Template_centerfitting(3, 3, image, thr=thr)
         num = int((kappa_end - kappa_start) / kappa_step) + 1
         self.kappa_lst = np.linspace(kappa_start, kappa_end, num)
         self.corr_lst = []
@@ -110,7 +100,6 @@ class Curvefitting:
         i = 0
         print('>>>Start curve fitting...')
         for kappa in self.kappa_lst:
-            # print(f'=====iter: {i}=====')
             self.simulated_membrane  = self.generate_membrane(kappa)
             self.simulated_membrane = self.simulated_membrane.astype(cp.float64)
             self.gray_image = self.gray_image.astype(cp.float64)
@@ -130,23 +119,3 @@ class Curvefitting:
         print('Best kappa:', self.best_kappa)
         self.mem_best = self.generate_membrane(self.best_kappa)
         return self.best_kappa
-    def fit_curve_visualize(self):
-        fig, axes = plt.subplots(1, 3, figsize=(10, 5))
-        axes[0].plot(self.kappa_lst, self.corr_lst, 'x', color = 'red')
-        axes[2].imshow(self.mem_best, cmap='gray', origin='lower')
-        axes[1].imshow(self.gray_image, cmap='gray', origin='lower')
-        plt.show()
-
-if __name__ == '__main__':
-    # gene_curve = Curve('image2.mrc', section=1, thr=0.5, kappa=0)
-    # membrane = gene_curve.generate_membrane()
-    # plt.imshow(membrane, cmap='gray', origin='lower')
-    # plt.show()
-    image = readmrc('neuron_templates.mrc', section=3, mode='gpu')
-    image = zoom(image, 256/64)
-    curve_fitting = Curvefitting(image, -0.01, 0.01, 21)
-    # curve_fitting.fit_curve()
-    # curve_fitting.fit_curve_visualize()
-    # mem_sub = curve_fitting.mem_subtract()
-    # plt.imshow(mem_sub, cmap='gray', origin='lower')
-    # plt.show()

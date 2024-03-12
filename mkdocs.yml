@@ -42,6 +42,7 @@ theme:
     - announce.dismiss
     - toc.follow
     - content.code.copy
+    - content.code.annotate
     - navigation.top
     - search.suggest
     - search.highlight
@@ -52,6 +53,9 @@ site_dir: ./wiki/site
 
 plugins:
   - search
+  - mkdocs-jupyter:
+        include_source: True
+        kernel_name: python3
 
 markdown_extensions:
   # Python Markdown
@@ -119,5 +123,6 @@ nav:
     - Micrograph Membrane Subtraction: ./tutorials/micrograph-membrane-subtraction.md
   - Frequently Asked Questions: ./tutorials/faq.md
   - Reference Pages:
+    - "Visualize Radonfit (.ipynb)": ./tutorials/reference/radonfit-mem-analysis-visualizer.ipynb
     - "Conventions": ./tutorials/reference/conventions.md
     - "API Reference": ./tutorials/reference/api.md

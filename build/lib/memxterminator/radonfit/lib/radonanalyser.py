@@ -12,10 +12,6 @@ class RadonAnalyzer:
         self.gray_image = image
         self.theta_start = theta_start
         self.theta_end = theta_end
-        # kernel = gaussian_kernel(size=5, sigma=20)
-        # print('filter')
-        # self.gray_image = create_gaussian_low_pass_filter(self.gray_image, cutoff_frequency=20)
-        # self.gray_image = convolve(self.gray_image, kernel)
         self.image_size = self.gray_image.shape[0]
         self.crop_rate = crop_rate
         radius = (self.image_size/2) * self.crop_rate
@@ -62,19 +58,6 @@ class RadonAnalyzer:
     def find_2_peaks(self):
         theta_start = self.theta_start
         theta_end = self.theta_end
-        # for dl in range(0,180):
-        #     theta, projection = self.radon_transform(theta_start+dl, theta_end+dl)
-        #     peaks = self.find_peaks_2d(cp.flipud(projection), 7, self.threshold * np.max(projection))
-        #     if len(peaks[0]) == 2:
-        #         if abs(peaks[1][0] - peaks[1][1]) < 1:
-        #             peaks[1][0] = peaks[1][0] + dl
-        #             peaks[1][1] = peaks[1][1] + dl
-        #             break
-        #         else:
-        #             pass
-        #     else:
-        #         continue
-        # return theta, projection, peaks
         theta, projection = self.radon_transform(theta_start, theta_end)
         peaks = self.find_peaks_2d(np.flipud(projection), 7, self.threshold * np.max(projection))
         print('peaks:', peaks)
@@ -140,10 +123,4 @@ class RadonAnalyzer:
         # axes[0].scatter(x_v, y_v, color='red', marker='x')
         plt.tight_layout()
         plt.show()
-
-
-# if __name__ == '__main__':
-#     image = readmrc('J320/templates_selected.mrc', section=3, mode='gpu')
-#     analyzer = RadonAnalyzer(0, image, crop_rate=0.9, thr=0.8)
-#     analyzer.visualize_analyze()
 

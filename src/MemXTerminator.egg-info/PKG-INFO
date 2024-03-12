@@ -1,12 +1,13 @@
 Metadata-Version: 2.1
 Name: MemXTerminator
-Version: 1.2.0
+Version: 1.2.1
 Summary: A software for membrane analysis and subtraction in cryo-EM
 Home-page: https://github.com/ZhenHuangLab/MemXTerminator
 Author: Zhen Huang
 Author-email: zhen.victor.huang@gmail.com
 License: GPLv3
 Keywords: cryo-EM,membrane protein,membrane subtraction
+Platform: UNKNOWN
 Classifier: Development Status :: 4 - Beta
 Classifier: License :: OSI Approved :: GNU General Public License v3 (GPLv3)
 Classifier: Programming Language :: Python :: 3.9
@@ -18,11 +19,11 @@ License-File: LICENSE
 
 A software for membrane analysis and subtraction in cryo-EM.
 
-![overview](./doc/img/0-1.png)
+![overview](./wiki/docs/assets/images/0-1.png)
 
 ## Overview
 
-This software utilizes 2D averages and their corresponding alignment information, employing methods such as Radon transformation, cross-correlation, L1 norm, Bezier curves, Monte Carlo simulations, and genetic algorithms. It analyzes and subtracts membranes of any shape in cryo-EM, ultimately producing particle stacks and micrographs with membrane signals removed, suitable for subsequent membrane protein analysis.
+This software utilizes 2D averages and their corresponding alignment information, employing methods such as Radon transform, cross-correlation, L1 norm, Bezier curves, Monte Carlo simulations, and Genetic Algorithm. It analyzes and subtracts membranes of any shape in cryo-EM, ultimately producing particle stacks and micrographs with membrane signals removed, which are suitable for subsequent membrane protein analysis.
 
 ## Features
 
@@ -73,3 +74,5 @@ I am still working on improving this software. More exciting features are on the
 ## Contact
 
 If you have any questions, please contact me: [zhen.victor.huang@gmail.com](mailto:zhen.victor.huang@gmail.com)
+
+

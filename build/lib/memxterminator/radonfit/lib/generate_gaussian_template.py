@@ -32,7 +32,7 @@ def gaussian2_gpu(x, membrane_dist, std1, std2):
 def generate_template(size, theta, membrane_dist, std1, std2, mode='cpu'):
     if mode == 'cpu':
         distance_matrix = np.zeros((size, size))
-        theta = (theta + 90) * np.pi / 180
+        theta = (theta - 90) * np.pi / 180
         x = range(size)
         y = range(size)
         x0 = size / 2
@@ -47,7 +47,8 @@ def generate_template(size, theta, membrane_dist, std1, std2, mode='cpu'):
             for i in x:
                 for j in y:
                     distance_matrix[i, j] = (k * i - j + b) / np.sqrt(k**2 + 1)
-        template = gaussian2(distance_matrix, membrane_dist, std1, std2)
+        # add a minus sign due to some annoying reasons
+        template = gaussian2(-distance_matrix, membrane_dist, std1, std2)
         return template
     elif mode == 'gpu':
         distance_matrix = cp.zeros((size, size))
@@ -56,7 +57,7 @@ def generate_template(size, theta, membrane_dist, std1, std2, mode='cpu'):
         y = range(size)
         x0 = size / 2
         y0 = size / 2
-        if cp.isclose(theta, cp.pi/2) or np.isclose(theta, 3*cp.pi/2):
+        if cp.isclose(theta, cp.pi/2) or cp.isclose(theta, 3*cp.pi/2):
             for i in x:
                 for j in y:
                     distance_matrix[i, j] = i - x0
@@ -66,15 +67,6 @@ def generate_template(size, theta, membrane_dist, std1, std2, mode='cpu'):
             for i in x:
                 for j in y:
                     distance_matrix[i, j] = (k * i - j + b) / cp.sqrt(k**2 + 1)
-        template = gaussian2_gpu(distance_matrix, membrane_dist, std1, std2)
+        # add a minus sign due to some annoying reasons
+        template = gaussian2_gpu(-distance_matrix, membrane_dist, std1, std2)
         return template
-
-if __name__ == '__main__':
-    x = np.linspace(-100, 100, 200)
-    g = gaussian2(x,12,4,4)
-    alpha = 30
-    size = 32
-    template_rotated = generate_template(size, alpha, 12, 4, 2)
-    plt.imshow(template_rotated, cmap='gray', origin='lower')
-    plt.show()
-

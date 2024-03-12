@@ -85,9 +85,7 @@ class average_membrane:
             interpolated_values = f(distance_mat_temp_cpu)
             membrane_average_2d_gpu = cp.zeros((self.image_size, self.image_size))
             membrane_average_2d_gpu[mask_within_range] = cp.array(interpolated_values)
-            # membrane_average_2d_gpu[mask_within_range] = f(distance_mat_temp_gpu[mask_within_range])
             gray_value = cp.exp(-(cp.abs(distance_mat_temp_gpu) - self.membrane_distance)**2 / (2 * self.sigma**2))
-            # gray_value = cp.exp(-(distance_mat_temp_gpu - self.membrane_distance)**2 / (2 * self.sigma**2))
             update_mask = (cp.abs(distance_mat_temp_gpu) > self.membrane_distance) & (gray_value >= 0.001)
 
             membrane_average_2d_gpu[update_mask] *= gray_value[update_mask]
