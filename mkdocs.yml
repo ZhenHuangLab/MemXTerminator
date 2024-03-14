@@ -124,5 +124,6 @@ nav:
   - Frequently Asked Questions: ./tutorials/faq.md
   - Reference Pages:
     - "Visualize Radonfit (.ipynb)": ./tutorials/reference/radonfit-mem-analysis-visualizer.ipynb
+    - "Visualize Bezierfit (.ipynb)": ./tutorials/reference/bezierfit-mem-analysis-visualizer.ipynb
     - "Conventions": ./tutorials/reference/conventions.md
     - "API Reference": ./tutorials/reference/api.md

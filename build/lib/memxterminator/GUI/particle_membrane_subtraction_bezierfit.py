@@ -107,7 +107,7 @@ class Ui_ParticleMembraneSubtraction_bezierfit(object):
         self.controlpoints_label.setText(_translate("ParticleMembraneSubtraction_bezierfit", "Control points file"))
         self.template_browse_pushButton.setText(_translate("ParticleMembraneSubtraction_bezierfit", "Browse..."))
         self.particle.setText(_translate("ParticleMembraneSubtraction_bezierfit", "Particle .cs file"))
-        self.points_step_lineEdit.setText(_translate("ParticleMembraneSubtraction_bezierfit", "0.005"))
+        self.points_step_lineEdit.setText(_translate("ParticleMembraneSubtraction_bezierfit", "0.001"))
         self.points_step_label.setText(_translate("ParticleMembraneSubtraction_bezierfit", "Points_step"))
         self.physical_membrane_dist_label.setText(_translate("ParticleMembraneSubtraction_bezierfit", "Physical membrane distance(Å)"))
         self.physical_membrane_dist_lineEdit.setText(_translate("ParticleMembraneSubtraction_bezierfit", "35"))

@@ -153,9 +153,9 @@ class MembraneSubtract:
         membrane_mask[mask_outside_distance & ~mask_small_gray_value] = gray_value[mask_outside_distance & ~mask_small_gray_value]
         return membrane_mask
 
-    def average_1d(self, image_gpu, fitted_points, normals, extra_mem_dist):
+    def average_1d(self, image_gpu, fitted_points, normals, mem_dist):
         average_1d_lst = []
-        for membrane_dist in range(-extra_mem_dist, extra_mem_dist+1):
+        for membrane_dist in range(-mem_dist, mem_dist+1):
             normals_points = fitted_points + membrane_dist * normals
             # Ensure the points are within the image boundaries
             mask = (normals_points[:, 0] >= 0) & (normals_points[:, 0] < image_gpu.shape[1]) & \
@@ -227,11 +227,11 @@ class MembraneSubtract:
     #         new_image[cp.isnan(new_image)] = 0
     #     return new_image.astype(image.dtype)
 
-    def average_2d(self, image_gpu, fitted_points, normals, average_1d_lst, extra_mem_dist):
+    def average_2d(self, image_gpu, fitted_points, normals, average_1d_lst, mem_dist):
         image = image_gpu.get()
         new_image = np.zeros_like(image)
         count_image = np.zeros_like(image)
-        for membrane_dist, average_1d in zip(range(-extra_mem_dist, extra_mem_dist+1), average_1d_lst):
+        for membrane_dist, average_1d in zip(range(-mem_dist, mem_dist+1), average_1d_lst):
             # start_time = time.time()
             normals_points = fitted_points + membrane_dist * normals
             mask = (normals_points[:, 0] >= 0) & (normals_points[:, 0] < image.shape[1]) & \
@@ -247,11 +247,11 @@ class MembraneSubtract:
             new_image[np.isnan(new_image)] = 0
         return new_image.astype(image.dtype)
     
-    def average_2d_gpu(self, image_gpu, fitted_points, normals, average_1d_lst, extra_mem_dist):
+    def average_2d_gpu(self, image_gpu, fitted_points, normals, average_1d_lst, mem_dist):
         new_image = cp.zeros_like(image_gpu)
         count_image = cp.zeros_like(image_gpu)
         fitted_points = cp.asarray(fitted_points)
-        membrane_dists = cp.arange(-extra_mem_dist, extra_mem_dist + 1)
+        membrane_dists = cp.arange(-mem_dist, mem_dist + 1)
         # Expand dimensions for broadcasting
         membrane_dists = membrane_dists[:, cp.newaxis, cp.newaxis]
         # Calculate all normals_points at once
@@ -275,14 +275,11 @@ class MembraneSubtract:
     def mem_subtract(self):
         control_points = self.control_points_trasf(self.control_points, self.psi, self.origin_x, self.origin_y)
         fitted_curve_points, t_values = generate_curve_within_boundaries(control_points, self.image.shape, self.points_step)
-        # plt.imshow(self.image, cmap='gray')
-        # plt.plot(fitted_curve_points[:, 0], fitted_curve_points[:, 1], 'r-')
-        # plt.plot(control_points[:, 0], control_points[:, 1], 'g.')
-        # plt.show()
+        extra_mem_dist = 10
         mem_mask = self.generate_2d_mask(self.image_gpu, fitted_curve_points, self.mem_dist)
-        raw_image_average_1d_lst = self.average_1d(self.image_gpu, fitted_curve_points, points_along_normal(control_points, t_values).get(), self.mem_dist)
-        raw_image_average_2d = self.average_2d(self.image_gpu, fitted_curve_points, points_along_normal(control_points, t_values).get(), raw_image_average_1d_lst, self.mem_dist)
-        raw_image_average_2d = cp.asarray(raw_image_average_2d)
+        raw_image_average_1d_lst = self.average_1d(self.image_gpu, fitted_curve_points, points_along_normal(control_points, t_values).get(), self.mem_dist+extra_mem_dist)
+        raw_image_average_2d = self.average_2d(self.image_gpu, fitted_curve_points, points_along_normal(control_points, t_values).get(), raw_image_average_1d_lst, self.mem_dist+extra_mem_dist)
+        raw_image_average_2d = cp.asarray(raw_image_average_2d) * mem_mask
         kernel = gaussian_kernel(5, 1)
         image_conv = convolve2d(self.image_gpu, kernel, mode = 'same')
         raw_image_average_2d_conv = convolve2d(raw_image_average_2d, kernel, mode = 'same')

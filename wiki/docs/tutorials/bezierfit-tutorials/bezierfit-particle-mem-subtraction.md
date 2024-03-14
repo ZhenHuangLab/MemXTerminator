@@ -47,7 +47,7 @@ You need to enter the following file paths:
 
 You can set the following parameters:
 
-* `Points_step`: As the Bezier curve is approximated using several points, you can set the interval between these points to control the precision of the generated Bezier curve. A smaller value will result in a more refined curve but increase computational load; a larger value may affect the results of Membrane Subtraction(DO NOT set it too large to avoid any artifacts). The default is 0.005;
+* `Points_step`: As the Bezier curve is approximated using several points, you can set the interval between these points to control the precision of the generated Bezier curve. A smaller value will result in a more refined curve but increase computational load; a larger value may affect the results of Membrane Subtraction(DO NOT set it too large to avoid any artifacts). The default is 0.001;
 * `Physical membrane distance`: Set the physical thickness of the biological membrane in Angstroms (Å). This parameter will be used to calculate the thickness of the mask for membrane averaging. It should be set based on actual conditions, generally between 35-40;
 
 After setting the appropriate parameters, click `Launch` to begin the membrane subtraction.

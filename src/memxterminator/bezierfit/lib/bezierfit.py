@@ -14,25 +14,13 @@ from multiprocessing import Pool
 import json
 from scipy.ndimage import zoom
 
-
-# def bezier_curve(control_points, t):
-#     B = np.outer((1 - t) ** 3, control_points[0]) + \
-#         np.outer(3 * (1 - t) ** 2 * t, control_points[1]) + \
-#         np.outer(3 * (1 - t) * t ** 2, control_points[2]) + \
-#         np.outer(t ** 3, control_points[3])
-#     return B.squeeze()
 def bezier_curve(control_points, t):
     n = len(control_points) - 1
     B = np.zeros_like(control_points[0], dtype=float)
     for i, point in enumerate(control_points):
         B += comb(n, i) * (1 - t) ** (n - i) * t ** i * point
     return B
-# def bezier_curve_derivative(control_points, t):
-#     control_points = np.array(control_points)
-#     B_prime = 3 * (1 - t) ** 2 * (control_points[1] - control_points[0]) + \
-#               6 * (1 - t) * t * (control_points[2] - control_points[1]) + \
-#               3 * t ** 2 * (control_points[3] - control_points[2])
-#     return B_prime
+
 def bezier_curve_derivative(control_points, t):
     n = len(control_points) - 1
     B_prime = np.zeros(2)
@@ -41,25 +29,6 @@ def bezier_curve_derivative(control_points, t):
         B_prime += coef * (control_points[i+1] - control_points[i])
     return B_prime
 
-# def bezier_curvature(control_points, t):
-#     dB0 = -3 * (1 - t) ** 2
-#     dB1 = 3 * (1 - t) ** 2 - 6 * t * (1 - t)
-#     dB2 = 6 * t * (1 - t) - 3 * t ** 2
-#     dB3 = 3 * t ** 2
-
-#     ddB0 = 6 * (1 - t)
-#     ddB1 = 6 - 18 * t
-#     ddB2 = 18 * t - 6
-#     ddB3 = 6 * t
-
-#     p = control_points
-#     dx = sum([p[i, 0] * [dB0, dB1, dB2, dB3][i] for i in range(4)])
-#     dy = sum([p[i, 1] * [dB0, dB1, dB2, dB3][i] for i in range(4)])
-#     ddx = sum([p[i, 0] * [ddB0, ddB1, ddB2, ddB3][i] for i in range(4)])
-#     ddy = sum([p[i, 1] * [ddB0, ddB1, ddB2, ddB3][i] for i in range(4)])
-
-#     curvature = abs(dx * ddy - dy * ddx) / (dx * dx + dy * dy) ** 1.5
-#     return curvature
 def bezier_curvature(control_points, t, threshold=1e-6, high_curvature_value=1e6):
     n = len(control_points) - 1
     
@@ -79,7 +48,6 @@ def bezier_curvature(control_points, t, threshold=1e-6, high_curvature_value=1e6
     
     magnitude_squared = dx * dx + dy * dy
     
-    # 规避除数接近零的问题
     if magnitude_squared < threshold:
         return high_curvature_value
 
@@ -331,22 +299,3 @@ def generate_curve_within_boundaries(control_points, image_shape, step):
             break
     fitted_curve_points = np.array([bezier_curve(control_points, t_val) for t_val in t_values])
     return np.array(fitted_curve_points), np.array(t_values)
-
-if __name__ == '__main__':
-    multiprocessing.set_start_method('spawn', force=True)
-    with mrcfile.open('/data3/kzhang/cryosparc/CS-vsv/J354/templates_selected.mrc') as f:
-        image = f.data[2]
-    image = zoom(image, 2)
-    coarsefit = Coarsefit(image, 600, 3, 300, 20)
-    initial_control_points = coarsefit()
-    ga_refine = GA_Refine(image, 1.068, 0.05, 50, 700, 18)
-    refined_control_points = ga_refine(initial_control_points, image)
-    refined_control_points = np.array(refined_control_points)
-    fitted_curve_points, t_values = generate_curve_within_boundaries(refined_control_points, image.shape, 0.01)
-    # save the control points in JSON format
-    with open('control_points.json', 'w') as f:
-        json.dump(refined_control_points.tolist(), f)
-    plt.imshow(image, cmap='gray')
-    plt.plot(fitted_curve_points[:, 0], fitted_curve_points[:, 1], 'r-')
-    plt.plot(refined_control_points[:, 0], refined_control_points[:, 1], 'g.')
-    plt.show()

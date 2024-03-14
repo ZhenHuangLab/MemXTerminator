@@ -105,12 +105,11 @@ class MembraneAnalyzer_Bezier_App(QtWidgets.QDialog, Ui_MembraneAnalyzer_Bezierf
                 os.remove(self.PID_FILE)
             self.timer.stop()
     def update_log(self):
-        # 读取日志文件内容
         try:
             with open('run.out', 'r') as f:
-                f.seek(self.last_read_position)  # 跳转到上次读取的位置
-                new_content = f.read()  # 读取新内容
-                self.last_read_position = f.tell()  # 更新读取的位置
+                f.seek(self.last_read_position)
+                new_content = f.read()
+                self.last_read_position = f.tell()
             if new_content:
                 self.LOG_textBrowser.append(new_content)
         except FileNotFoundError:
@@ -198,12 +197,11 @@ class ParticleMembraneSubtraction_Bezier_App(QtWidgets.QDialog, Ui_ParticleMembr
                 os.remove(self.PID_FILE)
             self.timer.stop()
     def update_log(self):
-        # 读取日志文件内容
         try:
             with open('run.out', 'r') as f:
-                f.seek(self.last_read_position)  # 跳转到上次读取的位置
-                new_content = f.read()  # 读取新内容
-                self.last_read_position = f.tell()  # 更新读取的位置
+                f.seek(self.last_read_position)
+                new_content = f.read()
+                self.last_read_position = f.tell()
             if new_content:
                 self.LOG_textBrowser.append(new_content)
         except FileNotFoundError:

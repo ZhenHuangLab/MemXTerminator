@@ -80,7 +80,6 @@ def membrane_subtract(particle_filename):
     shifts = shift_list[mask]
     classes = class_list[mask]
     for particle_idx, psi, pixel_size, shift, class_ in zip(particle_idxes, psis, pixel_sizes, shifts, classes):
-        # class_得根据control_points.json找到control_points
         # if str(class_) in control_points_dict:
         control_points = np.array(control_points_dict[str(class_)])
         # print(control_points)

@@ -222,12 +222,11 @@ class MembraneAnalyzerApp(QtWidgets.QDialog, Ui_MembraneAnalyzer):
                 os.remove(self.PID_FILE)
             self.timer.stop()
     def update_log(self):
-        # 读取日志文件内容
         try:
             with open('run.out', 'r') as f:
-                f.seek(self.last_read_position)  # 跳转到上次读取的位置
-                new_content = f.read()  # 读取新内容
-                self.last_read_position = f.tell()  # 更新读取的位置
+                f.seek(self.last_read_position)
+                new_content = f.read()
+                self.last_read_position = f.tell()
             if new_content:
                 self.textBrowser_log.append(new_content)
         except FileNotFoundError:
@@ -274,7 +273,7 @@ class MembraneSubtractionApp(QtWidgets.QDialog, Ui_MembraneSubtraction):
         self.last_read_position = 0
         self.timer = QtCore.QTimer(self)
         self.timer.timeout.connect(self.update_log)
-        self.timer.start(1000)  # 每秒更新一次
+        self.timer.start(1000)
         
 
     def browse_mem_analysis_starfile(self):
