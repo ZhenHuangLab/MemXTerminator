@@ -17,7 +17,7 @@ After completing the previous step of Membrane Analysis Using Radonfit, you have
 * For each particle, to obtain $F_{SubtractedRawImage}(x,y)$ (abbreviated as $F_{SRI}(x,y)$ ), use the following equation:
 
 $$
-F_{SRI}(x,y) = F_{RI}(x,y) \times F_{MM}(x,y) - \lambda \times F_{AM}(x,y)
+F_{SRI}(x,y) = F_{RI}(x,y) - \lambda \times F_{AM}(x,y)
 $$
 
 where $\lambda$ is a constant controlling the intensity of membrane subtraction. $\lambda$ is determined by:
