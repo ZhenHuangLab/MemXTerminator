@@ -20,7 +20,7 @@ $$
 where $\lambda$ is a constant controlling the intensity of membrane subtraction. $\lambda$ is determined by:
 
 $$
-\lambda = \arg \min_{\lambda} || F_{RI}(x,y) \times F_{MM}(x,y) - \lambda \times F_{AM}(x,y) ||
+\lambda = \arg \min_{\lambda} || F_{RI}(x,y) \times F_{MM}(x,y) - \lambda \times F_{AM}(x,y) ||_1
 $$
 
 ## 2 Specific Steps
