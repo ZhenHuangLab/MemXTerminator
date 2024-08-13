@@ -1,3 +1,10 @@
+> [!WARNING]
+> For better code management, this repository is no longer maintained and has been transferred. Please check out [MemXTerminator](https://github.com/MemXTerminator) for source code and wiki.
+
+<details>
+
+<summary>DEPRECATED.</summary>
+
 # MemXTerminator
 
 A software for membrane analysis and subtraction in cryo-EM.
@@ -57,3 +64,5 @@ I am still working on improving this software. More exciting features are on the
 ## Contact
 
 If you have any questions, please contact me: [zhen.victor.huang@gmail.com](mailto:zhen.victor.huang@gmail.com)
+
+</details>
