@@ -1,7 +1,7 @@
-site_name: MemXTerminator Wiki
+site_name: DEPRECATED_MemXTerminator Wiki
 repo_url: https://github.com/ZhenHuangLab/MemXTerminator
 repo_name: MemXTerminator
-site_description: A simple and beautiful wiki for MemXTerminator
+site_description: DEPRECATED_A simple and beautiful wiki for MemXTerminator
 site_author: Zhen Huang
 
 theme:
@@ -39,7 +39,6 @@ theme:
     - navigation.path
     - navigation.indexes
     - navigation.footer
-    - announce.dismiss
     - toc.follow
     - content.code.copy
     - content.code.annotate

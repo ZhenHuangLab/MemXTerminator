@@ -2,68 +2,75 @@
 comments: true
 ---
 
-# Micrograph Membrane Subtraction
+[Check out the new WIKI!](https://memxterminator.github.io/wiki/){ .md-button }
 
-!!! Warning
-    Currently, `.cs` files are not supported. So, in the `Bezierfit` mode, You still need to use `pyem` to convert `particles_selected.cs` to `particles_selected.star`. About how to convert `.cs` to `.star`, please refer to the **Preprocessing** section.
+!!! danger "This wiki is deprecated!"
+    This wiki is deprecated. Please check out the new [MemXTerminator Wiki](https://memxterminator.github.io/wiki/).
 
-## 1 Basic Idea
+??? failure "DEPRECATED"
 
-After the previous step of removing membrane signals from all particles, you can put these membrane-subtracted particles back into the original micrographs to obtain new micrographs with the membrane signals removed. These micrographs can be used for subsequent processing, like re-picking the membrane proteins in them.
+    # Micrograph Membrane Subtraction
 
-* For each particle $F_{RI}(x,y)$, we have a particle with membrane signals removed, $F_{SRI}(x,y)$;
+    !!! Warning
+        Currently, `.cs` files are not supported. So, in the `Bezierfit` mode, You still need to use `pyem` to convert `particles_selected.cs` to `particles_selected.star`. About how to convert `.cs` to `.star`, please refer to the **Preprocessing** section.
 
-* Based on the positional information of particles provided by `cryoSPARC`, we can replace the original particle $F_{MI}(x,y)$ in the micrograph with $F_{SRI}(x,y)$ to obtain a micrograph with membrane signals removed;
+    ## 1 Basic Idea
 
-* Of course, during the replacement process, considerations should be given to ensuring that $F_{SRI}(x,y)$ is at the same scale as the original $F_{RI}(x,y)$ and to how to deal with overlapping areas.
+    After the previous step of removing membrane signals from all particles, you can put these membrane-subtracted particles back into the original micrographs to obtain new micrographs with the membrane signals removed. These micrographs can be used for subsequent processing, like re-picking the membrane proteins in them.
 
-## 2 Specific Steps
+    * For each particle $F_{RI}(x,y)$, we have a particle with membrane signals removed, $F_{SRI}(x,y)$;
 
-### 2.1 Open the Interface
+    * Based on the positional information of particles provided by `cryoSPARC`, we can replace the original particle $F_{MI}(x,y)$ in the micrograph with $F_{SRI}(x,y)$ to obtain a micrograph with membrane signals removed;
 
-First, open the MemXTerminator main program, select the `Radonfit` or `Bezierfit` mode(based on which mode you have used for particle membrane subtraction), then choose `Micrograph Membrane Subtraction`, and enter the Micrograph Membrane Subtraction interface:
+    * Of course, during the replacement process, considerations should be given to ensuring that $F_{SRI}(x,y)$ is at the same scale as the original $F_{RI}(x,y)$ and to how to deal with overlapping areas.
 
-* For `Radonfit` mode:
+    ## 2 Specific Steps
 
-![Micrograph Membrane Subtraction interface](../assets/images/4_1-1.png){: .small}
-<span class="caption">Micrograph Membrane Subtraction interface (Radonfit)</span>
+    ### 2.1 Open the Interface
 
-* For `Bezierfit` mode:
+    First, open the MemXTerminator main program, select the `Radonfit` or `Bezierfit` mode(based on which mode you have used for particle membrane subtraction), then choose `Micrograph Membrane Subtraction`, and enter the Micrograph Membrane Subtraction interface:
 
-![Micrograph Membrane Subtraction interface](../assets/images/4_2-1.png){: .small}
-<span class="caption">Micrograph Membrane Subtraction interface (Bezierfit)</span>
+    * For `Radonfit` mode:
 
-### 2.2 Set Appropriate Parameters
+    ![Micrograph Membrane Subtraction interface](../assets/images/4_1-1.png){: .small}
+    <span class="caption">Micrograph Membrane Subtraction interface (Radonfit)</span>
 
-The `Micrograph Membrane Subtraction` interface is as follows:
+    * For `Bezierfit` mode:
 
-![Micrograph Membrane Subtraction main interface](../assets/images/4_1-2.png){: .small}
-<span class="caption">Micrograph Membrane Subtraction main interface</span>
+    ![Micrograph Membrane Subtraction interface](../assets/images/4_2-1.png){: .small}
+    <span class="caption">Micrograph Membrane Subtraction interface (Bezierfit)</span>
 
-You need to enter the following file path:
+    ### 2.2 Set Appropriate Parameters
 
-* `Particles selected starfile`: Choose the star file that saves all particles information, usually `particles_selected.star`;
+    The `Micrograph Membrane Subtraction` interface is as follows:
 
-You can set the following parameters:
+    ![Micrograph Membrane Subtraction main interface](../assets/images/4_1-2.png){: .small}
+    <span class="caption">Micrograph Membrane Subtraction main interface</span>
 
-* `Cpus`: You can set multiple CPUs for computation. Default is 15. However, if your GPU memory is limited, it is advised not to set too many CPUs to avoid memory issues;
+    You need to enter the following file path:
 
-* `Batch size`: You can set how many micrographs are processed in parallel. Default is 30, twice the number of CPUs. It is recommended to set it as a multiple of the CPU number. If your GPU memory is limited, it is advised not to set a large Batch size.
+    * `Particles selected starfile`: Choose the star file that saves all particles information, usually `particles_selected.star`;
 
-After setting the appropriate parameters, click `Launch` to begin the membrane signal removal from the micrograph.
+    You can set the following parameters:
 
-!!! Note "How to resume from a breakpoint"
-    Like particle membrane subtraction, if the job is interrupted for some reason, please don't worry. You can continue to do the micrograph membrane subtraction because every time you begin to do it, the software will read the `mms_run_data.log` file, which records the micrographs that have been processed. The software will automatically skip the processed micrographs and continue to process the remaining micrographs.
+    * `Cpus`: You can set multiple CPUs for computation. Default is 15. However, if your GPU memory is limited, it is advised not to set too many CPUs to avoid memory issues;
 
-## 3 Results
+    * `Batch size`: You can set how many micrographs are processed in parallel. Default is 30, twice the number of CPUs. It is recommended to set it as a multiple of the CPU number. If your GPU memory is limited, it is advised not to set a large Batch size.
 
-You will find a `subtracted` folder next to your folder containing the original micrographs, like this:
+    After setting the appropriate parameters, click `Launch` to begin the membrane signal removal from the micrograph.
 
-    Sxxx/
-    ├── motioncorrected/
-    ├── subtracted/
+    !!! Note "How to resume from a breakpoint"
+        Like particle membrane subtraction, if the job is interrupted for some reason, please don't worry. You can continue to do the micrograph membrane subtraction because every time you begin to do it, the software will read the `mms_run_data.log` file, which records the micrographs that have been processed. The software will automatically skip the processed micrographs and continue to process the remaining micrographs.
 
-In the `subtracted` folder, you will find all the `.mrc` files of the micrographs with membrane signals removed. You can proceed with further processing using `cryoSPARC`.
+    ## 3 Results
 
-!!! Note
-    The orginal micrographs don't have to be in the `motioncorrected` folder. The software will take the second folder in the directory as the original micrographs folder. For exmaple, in the `particles_selected.star` file, the `rlnMicrographName` column contains the path like `Jxxx/import/xxxmicrograph.mrc`. Then the software will take the `import` folder as the original micrographs folder and create a `subtracted` folder next to it.
+    You will find a `subtracted` folder next to your folder containing the original micrographs, like this:
+
+        Sxxx/
+        ├── motioncorrected/
+        ├── subtracted/
+
+    In the `subtracted` folder, you will find all the `.mrc` files of the micrographs with membrane signals removed. You can proceed with further processing using `cryoSPARC`.
+
+    !!! Note
+        The orginal micrographs don't have to be in the `motioncorrected` folder. The software will take the second folder in the directory as the original micrographs folder. For exmaple, in the `particles_selected.star` file, the `rlnMicrographName` column contains the path like `Jxxx/import/xxxmicrograph.mrc`. Then the software will take the `import` folder as the original micrographs folder and create a `subtracted` folder next to it.

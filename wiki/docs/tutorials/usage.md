@@ -2,48 +2,55 @@
 comments: true
 ---
 
-# Usage
+[Check out the new WIKI!](https://memxterminator.github.io/wiki/){ .md-button }
 
-## GUI
+!!! danger "This wiki is deprecated!"
+    This wiki is deprecated. Please check out the new [MemXTerminator Wiki](https://memxterminator.github.io/wiki/).
 
-This software has a user-friendly GUI. To use this software:
+??? failure "DEPRECATED"
 
-First enter into the conda environment you create or you have installed the `MemXTerminator`, like:
+    # Usage
 
-```bash
+    ## GUI
 
-conda activate mxt
+    This software has a user-friendly GUI. To use this software:
 
-```
+    First enter into the conda environment you create or you have installed the `MemXTerminator`, like:
 
-Then simply type:
+    ```bash
 
-```bash
+    conda activate mxt
 
-MemXTerminator gui &
-```
+    ```
 
-You should see the interface now:
+    Then simply type:
 
-![GUI](../assets/images/gui.png){: .small}
-<span class="caption">MemXTerminator GUI</span>
+    ```bash
 
-## Fix Map ID
+    MemXTerminator gui &
+    ```
 
-If you get the error like this during the membrane subtraction:
+    You should see the interface now:
 
-> ValueError: Map ID string not found - not an MRC file, or file is corrupt
+    ![GUI](../assets/images/gui.png){: .small}
+    <span class="caption">MemXTerminator GUI</span>
 
-It's due to the `mrcfile` python library. 
+    ## Fix Map ID
 
-For more details you can refer to these links:
+    If you get the error like this during the membrane subtraction:
 
-* [Handling corrupt or bad-header MRC files #544](https://github.com/ComputationalCryoEM/ASPIRE-Python/issues/544)
-* [Permissive read mode](https://mrcfile.readthedocs.io/en/stable/usage_guide.html#permissive-read-mode)
+    > ValueError: Map ID string not found - not an MRC file, or file is corrupt
 
-You can use this command to fix the `.mrc` files:
+    It's due to the `mrcfile` python library. 
 
-```bash
+    For more details you can refer to these links:
 
-MemXTerminator fixmapid <path_to_mrc_file>
-```
+    * [Handling corrupt or bad-header MRC files #544](https://github.com/ComputationalCryoEM/ASPIRE-Python/issues/544)
+    * [Permissive read mode](https://mrcfile.readthedocs.io/en/stable/usage_guide.html#permissive-read-mode)
+
+    You can use this command to fix the `.mrc` files:
+
+    ```bash
+
+    MemXTerminator fixmapid <path_to_mrc_file>
+    ```

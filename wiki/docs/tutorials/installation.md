@@ -2,63 +2,70 @@
 comments: true
 ---
 
-# Installation
+[Check out the new WIKI!](https://memxterminator.github.io/wiki/){ .md-button }
 
-## Requirements
+!!! danger "This wiki is deprecated!"
+    This wiki is deprecated. Please check out the new [MemXTerminator Wiki](https://memxterminator.github.io/wiki/).
 
-* NVIDIA GPU with CUDA drivers and libraries
-* `cupy` library
-* other dependencies (e.g. `mrcfile`)
+??? failure "DEPRECATED"
 
-!!! note
-    Please note that the corresponding python libraries will be automatically installed during the installation process of this software.
+    # Installation
 
-## How to install
+    ## Requirements
 
-### Step 1: Clone repository
+    * NVIDIA GPU with CUDA drivers and libraries
+    * `cupy` library
+    * other dependencies (e.g. `mrcfile`)
 
-```bash
+    !!! note
+        Please note that the corresponding python libraries will be automatically installed during the installation process of this software.
 
-git clone https://github.com/ZhenHuangLab/MemXTerminator.git
+    ## How to install
 
-```
+    ### Step 1: Clone repository
 
-### Step 2: Create a virtual environment
+    ```bash
 
-```bash
+    git clone https://github.com/ZhenHuangLab/MemXTerminator.git
 
-conda create -n mxt python=3.9
+    ```
 
-conda activate mxt
+    ### Step 2: Create a virtual environment
 
-```
+    ```bash
 
-### Step 3: Install software and dependencies
+    conda create -n mxt python=3.9
 
-```bash
+    conda activate mxt
 
-cd MemXTerminator
+    ```
 
-pip install .
+    ### Step 3: Install software and dependencies
 
-```
+    ```bash
 
-## How to update
+    cd MemXTerminator
 
-Please get to the source-code dictionary downloaded from the repository, for example:
+    pip install .
 
-```bash
+    ```
 
-cd MemXTerminator
+    ## How to update
 
-```
+    Please get to the source-code dictionary downloaded from the repository, for example:
 
-Then, run the following command:
+    ```bash
 
-```bash
+    cd MemXTerminator
 
-git pull
+    ```
 
-pip install .
+    Then, run the following command:
 
-```
+    ```bash
+
+    git pull
+
+    pip install .
+
+    ```

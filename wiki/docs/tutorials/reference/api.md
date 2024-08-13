@@ -2,6 +2,13 @@
 comments: True
 ---
 
-# API reference
+[Check out the new WIKI!](https://memxterminator.github.io/wiki/){ .md-button }
 
-Currently under development. More content will come soon...
+!!! danger "This wiki is deprecated!"
+    This wiki is deprecated. Please check out the new [MemXTerminator Wiki](https://memxterminator.github.io/wiki/).
+
+??? failure "DEPRECATED"
+
+    # API reference
+
+    Currently under development. More content will come soon...
