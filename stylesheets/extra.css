@@ -1,0 +1,64 @@
+/* 使用黑幕，只要<span class="heimu" title="你知道的太多了">输入你想加的文字</span>即可 */
+
+span.heimu a.external,
+span.heimu a.external:visited,
+span.heimu a.extiw,
+span.heimu a.extiw:visited {
+    color: #252525;
+}
+.heimu,
+.heimu a,
+a .heimu,
+.heimu a.new {
+    background-color: #252525;
+    color: #252525;
+    text-shadow: none;
+}
+body:not(.heimu_toggle_on) .heimu:hover,
+body:not(.heimu_toggle_on) .heimu:active,
+body:not(.heimu_toggle_on) .heimu.off {
+    transition: color .13s linear;
+    color: white;
+}
+body:not(.heimu_toggle_on) .heimu:hover a,
+body:not(.heimu_toggle_on) a:hover .heimu,
+body:not(.heimu_toggle_on) .heimu.off a,
+body:not(.heimu_toggle_on) a:hover .heimu.off {
+    transition: color .13s linear;
+    color: lightblue;
+}
+body:not(.heimu_toggle_on) .heimu.off .new,
+body:not(.heimu_toggle_on) .heimu.off .new:hover,
+body:not(.heimu_toggle_on) .new:hover .heimu.off,
+body:not(.heimu_toggle_on) .heimu.off .new,
+body:not(.heimu_toggle_on) .heimu.off .new:hover,
+body:not(.heimu_toggle_on) .new:hover .heimu.off {
+    transition: color .13s linear;
+    color: #BA0000;
+}
+
+/* 使用黑幕 */
+
+.overlay-img {
+    transition: transform 0.25s;
+}
+
+.overlay {
+    transition: opacity 0.25s;
+}
+
+.small {
+    display: block;
+    margin: 0 auto;
+    width: 60%;
+}
+
+/* 添加图片说明，只要<span class="caption">输入你想加的文字</span>即可 */
+
+.caption {
+    font-style: italic;
+    font-size: 0.8em;
+    color: #666;
+    display: block;
+    text-align: center;
+}
